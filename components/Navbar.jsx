@@ -22,7 +22,7 @@ const Navbar = () => {
         >
             <Card className="flex items-center h-full px-6 py-5 rounded-full! gap-4 overflow-hidden bg-gray-200/50! backdrop-blur-lg">
                 {links.map((link) => (
-                    <Link key={link.id} href={link.url} className={`px-3 py-2 rounded-xl hover:bg-gray-200/50 transition-all duration-200  ${pathname === link.url ? '-translate-y-1 border-b border-blue-400 rounded-b-none text-blue-400' : ''} `}>
+                    <Link key={link.id} href={link.url} className={`px-3 py-2 hover:bg-gray-200/50 transition-all duration-200  ${pathname === link.url ? '-translate-y-1 border-b border-blue-400 rounded-b-none text-blue-400' : ''} `}>
                         <Typography variant="button">
                             {
                                 pathname === link.url ? link.icon : link.name

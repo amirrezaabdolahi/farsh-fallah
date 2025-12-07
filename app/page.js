@@ -78,7 +78,7 @@ export default function Home() {
 
   return (
     <PageLayout>
-      <Box className="flex items-center justify-between py-2 gap-4">
+      <Box className="flex items-center justify-between py-2 gap-4 ">
         {cards.map((card) => (
           <Card key={card.id} className="w-full p-4 mb-4 bg-white rounded-lg shadow-md relative flex items-center justify-between">
             <div className={`absolute w-1 right-0 top-0 bottom-0 bg-blue-400 ${card.id === 1 ? 'block' : 'hidden'}`}></div>
@@ -116,7 +116,7 @@ export default function Home() {
       <Box className="w-full p-2 shadow-md rounded-lg flex items-center mt-4 border border-gray-100">
         <ChartFiterComponent />
       </Box>
-      <Box className="mt-4 w-full h-100 " dir="ltr">
+      <Box className="mt-4 w-full h-100 shadow-lg p-6 pl-0 rounded-lg" dir="ltr">
         <AreaChartView data={AreaChartData} />
       </Box>
 

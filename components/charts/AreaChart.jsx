@@ -4,7 +4,7 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 const AreaChartView = ({ data }) => {
   return (
 
-    <ResponsiveContainer width="100%" height="100%" className="shadow-lg p-6 pl-0 rounded-lg">
+    <ResponsiveContainer width="100%" height="100%" className="">
       <AreaChart data={data}>
         <CartesianGrid strokeDasharray="5 5" />
 
