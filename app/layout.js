@@ -1,14 +1,22 @@
-import { Geist, Geist_Mono } from "next/font/google";
+import { Vazirmatn } from "next/font/google";
 import "./globals.css";
+import { ThemeContextProvider } from "@/components/ThemeContext";
+import Navbar from "@/components/Navbar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+const Vazirmatn_Sans = Vazirmatn({
+  subsets: ["arabic"],
+  weight: [
+    "100",
+    "200",
+    "300",
+    "400",
+    "500",
+    "600",
+    "700",
+    "800",
+    "900",
+  ],
+  variable: "--font-vazirmatn",
 });
 
 export const metadata = {
@@ -18,11 +26,13 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
+    <html lang="fa" dir="rtl">
+      <body className={`${Vazirmatn_Sans.variable} antialiased`}>
+        {/* تم MUI و دارک مود از اینجا کنترل میشه */}
+        <ThemeContextProvider>
+          {children}
+          <Navbar />
+        </ThemeContextProvider>
       </body>
     </html>
   );

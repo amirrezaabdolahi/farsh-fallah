@@ -1,103 +1,127 @@
-import Image from "next/image";
+
+import AreaChartView from "@/components/charts/AreaChart";
+import BarChartView from "@/components/charts/BarChart";
+import BarChart from "@/components/charts/BarChart";
+import ChartFiterComponent from "@/components/charts/ChartFiterComponent";
+import PageLayout from "@/components/PageLayout";
+import { AddCardRounded, AttachMoneyRounded } from "@mui/icons-material";
+import { Autocomplete, Box, Button, Card, IconButton, TextField, Typography } from "@mui/material";
+
+const cards = [
+  { id: 1, title: "درامد ماهانه", value: "۵۰,۰۰۰,۰۰۰ تومان", icon: <AttachMoneyRounded fontSize="inherit" color="inherit" /> },
+  { id: 2, title: "فروش ماهانه", value: "23", icon: <AddCardRounded fontSize="inherit" color="inherit" /> },
+  { id: 3, title: "فروش ماهانه", value: "23", icon: <AddCardRounded fontSize="inherit" color="inherit" /> },
+  { id: 4, title: "فروش ماهانه", value: "23", icon: <AddCardRounded fontSize="inherit" color="inherit" /> },
+
+]
+
+const BarChartData = [
+  { area: 1, count: 3 },
+  { area: 2, count: 5 },
+  { area: 3, count: 2 },
+  { area: 4, count: 8 },
+  { area: 5, count: 6 },
+  { area: 6, count: 4 },
+  { area: 7, count: 7 },
+  { area: 8, count: 5 },
+  { area: 9, count: 9 },
+  { area: 10, count: 6 },
+  { area: 11, count: 4 },
+  { area: 12, count: 8 },
+  { area: 13, count: 7 },
+  { area: 14, count: 5 },
+  { area: 15, count: 9 },
+  { area: 16, count: 6 },
+  { area: 17, count: 4 },
+  { area: 18, count: 8 },
+  { area: 19, count: 20 },
+  { area: 20, count: 5 },
+  { area: 21, count: 9 },
+]
+
+const AreaChartData = [
+  { date: "2025-01-01", price: 200 },
+  { date: "2025-01-02", price: 189 },
+  { date: "2025-01-03", price: 240 },
+  { date: "2025-01-04", price: 175 },
+  { date: "2025-01-05", price: 260 },
+  { date: "2025-01-06", price: 198 },
+  { date: "2025-01-07", price: 221 },
+  { date: "2025-01-08", price: 243 },
+  { date: "2025-01-09", price: 210 },
+  { date: "2025-01-10", price: 170 },
+  { date: "2025-01-11", price: 192 },
+  { date: "2025-01-12", price: 260 },
+  { date: "2025-01-13", price: 228 },
+  { date: "2025-01-14", price: 245 },
+  { date: "2025-01-15", price: 267 },
+  { date: "2025-01-16", price: 199 },
+  { date: "2025-01-17", price: 181 },
+  { date: "2025-01-18", price: 234 },
+  { date: "2025-01-19", price: 251 },
+  { date: "2025-01-20", price: 223 },
+  { date: "2025-01-21", price: 177 },
+  { date: "2025-01-22", price: 190 },
+  { date: "2025-01-23", price: 260 },
+  { date: "2025-01-24", price: 210 },
+  { date: "2025-01-25", price: 230 },
+  { date: "2025-01-26", price: 188 },
+  { date: "2025-01-27", price: 206 },
+  { date: "2025-01-28", price: 255 },
+  { date: "2025-01-29", price: 242 },
+  { date: "2025-01-30", price: 268 }
+];
+
 
 export default function Home() {
-  return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              app/page.js
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+
+  return (
+    <PageLayout>
+      <Box className="flex items-center justify-between py-2 gap-4">
+        {cards.map((card) => (
+          <Card key={card.id} className="w-full p-4 mb-4 bg-white rounded-lg shadow-md relative flex items-center justify-between">
+            <div className={`absolute w-1 right-0 top-0 bottom-0 bg-blue-400 ${card.id === 1 ? 'block' : 'hidden'}`}></div>
+            <div className="">
+              <Typography variant="h6" className="mb-2 text-gray-700">{card.title}</Typography>
+              <Typography variant="h4" className="font-bold!" color="primary.dark">{card.value}</Typography>
+            </div>
+            <IconButton size="large" className="bg-blue-100 text-blue-500!">
+              {card.icon}
+            </IconButton>
+          </Card>
+        ))}
+      </Box>
+
+      {/* bar chart and add product boxs */}
+      <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-90 mt-4">
+
+        <Box className="flex flex-col gap-4">
+          <Button variant="contained" color="primary" className="h-full w-full" >اضافه کردن فرش</Button>
+          <Button variant="outlined" color="primary" className="h-full w-full" >مشاهده فرش ها</Button>
+        </Box>
+
+        <Box className="flex flex-col gap-4">
+          <Button variant="contained" color="primary" className="h-full w-full" >اضافه کردن تابلو</Button>
+          <Button variant="outlined" color="primary" className="h-full w-full" >مشاهده تابلو ها</Button>
+        </Box>
+
+        <Box className="col-span-2 shadow-lg border border-gray-100 rounded-lg p-6 " dir="ltr">
+          <BarChartView data={BarChartData} />
+        </Box>
+      </Box>
+
+
+      {/* area chart */}
+      <Box className="w-full p-2 shadow-md rounded-lg flex items-center mt-4 border border-gray-100">
+        <ChartFiterComponent />
+      </Box>
+      <Box className="mt-4 w-full h-100 " dir="ltr">
+        <AreaChartView data={AreaChartData} />
+      </Box>
+
+
+
+    </PageLayout>
   );
 }
