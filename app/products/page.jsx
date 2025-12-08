@@ -104,14 +104,14 @@ const Products = () => {
                 </Box>
                 <Box className="flex items-center gap-4">
                     <TextField label="جستجو محصولات" variant="outlined" size="small" />
-                    <Button variant='contained' endIcon={<AddRounded />}>افزودن محصول</Button>
+                    <Link href="products/add"><Button variant='contained' endIcon={<AddRounded />}>افزودن محصول</Button></Link>
                     <Button variant='contained' color='warning' >ثبت فروش</Button>
                 </Box>
             </Box>
 
             {/* filters */}
 
-            <Box className="flex items-center gap-2" sx={{color : 'primary.main' , fontSize : 16}}>
+            <Box className="flex items-center gap-2" sx={{ color: 'primary.main', fontSize: 16 }}>
                 <Link href={"#"} className="" >ابریشم طرح قم</Link>
                 <Typography variant='body1'>/</Typography>
                 <Link href={"#"} className="" >تبریز</Link>
