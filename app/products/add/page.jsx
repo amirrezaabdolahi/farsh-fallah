@@ -8,17 +8,19 @@ import React, { useRef, useState } from 'react'
 import { CloudUploadRounded } from '@mui/icons-material';
 
 
+
+
 const AddProductPage = () => {
 
     const [file, setFile] = useState(null)
     const [preview, setPreview] = useState(null)
+    const [productType, setProductType] = useState(productTypes[0].label)
+    const [productTypeInputValue, setProductTypeInputValue] = useState('')
     const fileInput = useRef(null)
 
     const handleImageChange = (e) => {
         const selected = e.target.files?.[0]
-        if (!selected) {
-            return
-        }
+        if (!selected) return
 
         setFile(selected)
         setPreview(URL.createObjectURL(selected))
@@ -65,6 +67,18 @@ const AddProductPage = () => {
                     />
                     <Autocomplete
                         disablePortal
+                        options={productTypes}
+                        value={productType}
+                        inputValue={productTypeInputValue}
+                        onInputChange={(e, newValue) => { setProductTypeInputValue(newValue) }}
+                        size='small'
+                        className='w-full!'
+                        sx={{ width: 300 }}
+                        onChange={(e, newValue) => { setProductType(newValue) }}
+                        renderInput={(params) => <TextField {...params} label="نوع محصول" />}
+                    />
+                    <Autocomplete
+                        disablePortal
                         options={carpetCategories}
                         size='small'
                         className='w-full!'
@@ -97,6 +111,10 @@ export const carpetCategories = [
     { id: 15, label: "ابریشم طرح قم" },
     { id: 16, label: "غیره" },
 ];
+export const productTypes = [
+    { id: 1, label: 'فرش' },
+    { id: 2, label: 'تابلو' }
+]
 
 
 export default AddProductPage
