@@ -8,8 +8,8 @@ import { usePathname } from "next/navigation";
 const links = [
     { id: 1, name: "داشبورد", url: "/", icon: <HomeRounded /> },
     { id: 2, name: "محصولات", url: "/products", icon: <LocalMallRounded /> },
-    { id: 3, name: "تنظیمات", url: "/settings", icon: <SettingsRounded /> },
-    { id: 4, name: "فروش", url: "/sale", icon: <AttachMoneyRounded /> },
+    { id: 3, name: "فروش", url: "/sale", icon: <AttachMoneyRounded /> },
+    { id: 4, name: "تنظیمات", url: "/settings", icon: <SettingsRounded /> },
 ];
 
 const Navbar = () => {

@@ -94,9 +94,9 @@ export default function Home() {
       </Box>
 
       {/* bar chart and add product boxs */}
-      <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 h-90 mt-4">
+      <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-4 h-90 mt-4">
 
-        <Box className="flex flex-col gap-4">
+        <Box className="flex flex-col gap-4 ">
           <Button variant="contained" color="primary" className="h-full w-full" >اضافه کردن فرش</Button>
           <Button variant="outlined" color="primary" className="h-full w-full" >مشاهده فرش ها</Button>
         </Box>
@@ -106,7 +106,7 @@ export default function Home() {
           <Button variant="outlined" color="primary" className="h-full w-full" >مشاهده تابلو ها</Button>
         </Box>
 
-        <Box className="col-span-2 shadow-lg border border-gray-100 rounded-lg p-6 " dir="ltr">
+        <Box className="col-span-4 shadow-lg border border-gray-100 rounded-lg p-6 " dir="ltr">
           <BarChartView data={BarChartData} />
         </Box>
       </Box>
