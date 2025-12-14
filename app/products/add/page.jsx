@@ -77,14 +77,24 @@ const AddProductPage = () => {
                         onChange={(e, newValue) => { setProductType(newValue) }}
                         renderInput={(params) => <TextField {...params} label="نوع محصول" />}
                     />
-                    <Autocomplete
-                        disablePortal
-                        options={carpetCategories}
-                        size='small'
-                        className='w-full!'
-                        sx={{ width: 300 }}
-                        renderInput={(params) => <TextField {...params} label="طرح" />}
-                    />
+                    <Box className="flex gap-2">
+                        <Autocomplete
+                            disablePortal
+                            options={carpetCategories}
+                            size='small'
+                            className='w-full!'
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="طرح" />}
+                        />
+                        <Autocomplete
+                            disablePortal
+                            options={["ابریشم", "نمیدونم اینو"]}
+                            size='small'
+                            className='w-full!'
+                            sx={{ width: 300 }}
+                            renderInput={(params) => <TextField {...params} label="جنس" />}
+                        />
+                    </Box>
                     <Button variant='contained' className='w-full'>ثبت</Button>
                 </Box>
             </Card>

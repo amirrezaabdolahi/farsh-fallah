@@ -1,0 +1,18 @@
+export const productCategories = [
+  { id: "abrisham-qom", label: "ابریشم طرح قم" },
+  { id: "tabriz", label: "تبریز" },
+  { id: "nain", label: "ناین" },
+  { id: "hood-birjand", label: "هود بیرجند" },
+  { id: "qashqai", label: "قشقایی" },
+  { id: "arak", label: "اراک" },
+  { id: "qom", label: "قم" },
+  { id: "torkaman", label: "ترکمن" },
+  { id: "esfahan", label: "اصفهان" },
+  { id: "saregh", label: "سارق" },
+  { id: "ashayer", label: "عشایر" },
+  { id: "bakhtiar", label: "بختیار" },
+  { id: "ardakan", label: "اردکان" },
+  { id: "kashan", label: "کاشان" },
+  { id: "kashem", label: "کاشم" },
+  { id: "ghayreh", label: "غیره" },
+];

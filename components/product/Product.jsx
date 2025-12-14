@@ -1,6 +1,7 @@
 "use client"
 import { DeleteRounded, EditRounded, RemoveRedEyeRounded, ReportProblemRounded } from '@mui/icons-material'
 import { Avatar, Box, Button, Card, Checkbox, IconButton, Modal, Typography } from '@mui/material'
+import Link from 'next/link';
 import React from 'react'
 
 const style = {
@@ -21,6 +22,9 @@ const Product = ({ product }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+
+
+
     return (
         <>
             <Card elevation={3} key={product.id} className='w-full rounded-xl! border border-gray-200 py-4 px-6 flex items-center justify-between'>
@@ -37,14 +41,13 @@ const Product = ({ product }) => {
                 <Typography variant='subtitle1'>{product.sales}</Typography>
                 <Typography variant='subtitle1'>{product.price.toLocaleString("fa-IR")} تومان</Typography>
                 <Box className="flex items-center">
-                    <IconButton color='primary'  >
-                        <EditRounded />
-                    </IconButton>
+                    <Link href={`products/${product.id}`} className='p-0 m-0'>
+                        <IconButton color='primary'>
+                            <EditRounded />
+                        </IconButton>
+                    </Link>
                     <IconButton color='error' onClick={handleOpen}>
                         <DeleteRounded />
-                    </IconButton>
-                    <IconButton >
-                        <RemoveRedEyeRounded />
                     </IconButton>
                 </Box>
             </Card>

@@ -18,7 +18,16 @@
     --foreground: #ededed;
   }
 }
+/* Disable overscroll flash globally */
+html,
+body {
+  overscroll-behavior: none;
+}
 
+/* Optional: smoother scrolling on iOS */
+* {
+  -webkit-overflow-scrolling: touch;
+}
 body {
   background-color: #f8f8f8;
   font-family: Vazirmatn, Arial, Helvetica, sans-serif;
