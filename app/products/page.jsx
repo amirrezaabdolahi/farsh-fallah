@@ -1,10 +1,9 @@
 
 import PageLayout from '@/components/PageLayout'
 import Product from '@/components/product/Product'
-import Toggle from '@/components/product/Toggle'
+import ProductsFilteringView from '@/components/product/ProductsFilteringView'
 import { horizontalScrollSx } from '@/components/ui/scrollbar'
 import { productsData } from '@/utils/mokaProducts'
-import { productCategories } from '@/utils/rugsLink'
 import { AddRounded, DangerousRounded, DataThresholdingRounded, DeleteRounded, Edit, EditRounded, Inventory2Rounded, RemoveRedEyeRounded, ShowChartRounded, TrendingDownRounded, TrendingUpRounded, VerifiedRounded, ViewDayRounded } from '@mui/icons-material'
 import { Avatar, Breadcrumbs, Button, Card, Checkbox, IconButton, TextField, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import { Box } from '@mui/system'
@@ -111,27 +110,7 @@ const Products = async ({ searchParams }) => {
 
             {/* filters */}
 
-            <Box className="items-center my-2 w-full  grid grid-cols-1 lg:grid-cols-2">
-                <Box className="w-full">
-                    <div role="presentation" >
-                        <Breadcrumbs aria-label="breadcrumb">
-                            {productCategories?.map((item) => (
-                                <Link
-                                    key={item.id}
-                                    href={{
-                                        query: { category: item.id },
-                                    }}
-                                    className={`${item.id == category ? "border-b border-blue-500 text-blue-500" : ""}`} >
-                                    {item.label}
-                                </Link>
-                            ))}
-                        </Breadcrumbs>
-                    </div>
-                </Box>
-
-                {/* toggle btn for change type */}
-                <Toggle category={category} />
-            </Box>
+            <ProductsFilteringView category={category} />
 
             {/* tabel head */}
             <Box
