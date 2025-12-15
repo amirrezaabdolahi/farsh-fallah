@@ -50,3 +50,26 @@ export const validateProductForm = (formData) => {
         errors,
     }
 }
+
+export const validateSaleForm = (form) => {
+const errors = {}
+
+
+if (!form.product) errors.product = "محصول الزامی است"
+if (!form.quantity || form.quantity < 1)
+errors.quantity = "تعداد معتبر نیست"
+
+
+if (!/^09\d{9}$/.test(form.phone))
+errors.phone = "شماره تلفن نامعتبر است"
+
+
+if (!form.province) errors.province = "استان را انتخاب کنید"
+if (!form.city) errors.city = "شهر را انتخاب کنید"
+
+
+return {
+isValid: Object.keys(errors).length === 0,
+errors,
+}
+}
