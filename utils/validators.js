@@ -19,12 +19,6 @@ export const validateProductForm = (formData) => {
         errors.category = "طرح محصول را انتخاب کنید"
     }
 
-    if (!formData.description?.trim()) {
-        errors.description = "توضیحات الزامی است"
-    } else if (formData.description.trim().length < 10) {
-        errors.description = "توضیحات باید حداقل ۱۰ کاراکتر باشد"
-    }
-
     if (!formData.unitprice) {
         errors.unitprice = "قیمت خرید الزامی است"
     } else if (Number(formData.unitprice) <= 0) {

@@ -14,5 +14,5 @@ export const productCategories = [
   { id: "ardakan", label: "اردکان" },
   { id: "kashan", label: "کاشان" },
   { id: "kashem", label: "کاشم" },
-  { id: "ghayreh", label: "غیره" },
+  { id: "motefarghe", label: "متفرقه" },
 ];
