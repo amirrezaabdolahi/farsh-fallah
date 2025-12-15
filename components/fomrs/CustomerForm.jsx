@@ -5,6 +5,9 @@ import { areas, locations } from '@/utils/locations'
 import { Box, FormControl, InputLabel, MenuItem, Select, TextField } from '@mui/material'
 import React, { useState } from 'react'
 
+
+// not using
+
 const CustomerForm = () => {
     const [province, setProvince] = useState("");
     const [city, setCity] = useState("");
