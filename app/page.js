@@ -26,7 +26,9 @@ export default async function Home() {
         `${process.env.BACKEND_API_URL}api/reports/customers_by_region/`
     ).then((res) => res.json());
 
-    console.log(BarChartData);
+    const AreaChartData = await fetch(`${process.env.BACKEND_API_URL}api/reports/chart_sales/`).then(res => res.json())
+
+    console.log(AreaChartData);
 
     const cards = [
         {
@@ -38,7 +40,7 @@ export default async function Home() {
         {
             id: 2,
             title: "درآمد روز",
-            value: `${dashBoardData?.today_profit}`,
+            value: `${Number(dashBoardData?.today_profit).toLocaleString()}ت`,
             icon: <CalendarMonthRounded fontSize="inherit" color="inherit" />,
         },
         {
@@ -133,14 +135,14 @@ export default async function Home() {
                     className="col-span-full lg:col-span-4 shadow-lg border border-gray-100 rounded-lg p-6 "
                     dir="ltr"
                 >
-                    <BarChartView data={BarChartData} />
+                    <BarChartView data={BarChartData.regions} />
                 </Box>
             </Box>
 
             {/* area chart */}
             <Box></Box>
             <Divider className="my-4!" />
-            <AreaChartComponent />
+            <AreaChartComponent data={AreaChartData} />
         </PageLayout>
     );
 }

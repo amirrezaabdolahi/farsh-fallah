@@ -20,8 +20,8 @@ const ProductsFilteringView = ({ category }) => {
 
     // derived data (no extra state)
     const categoryByType = useMemo(() => {
-        if (alignment === "rugs") return carpetCategories
-        if (alignment === "boards") return boardCategories
+        if (alignment === "carpet") return carpetCategories
+        if (alignment === "tableau") return boardCategories
         return [...carpetCategories, ...boardCategories]
     }, [alignment])
 
@@ -63,10 +63,10 @@ const ProductsFilteringView = ({ category }) => {
                 onChange={(_, value) => value && setAlignment(value)}
             >
                 <ToggleButton value="all">همه</ToggleButton>
-                <ToggleButton value="rugs" color="success">
+                <ToggleButton value="carpet" color="success">
                     فرش
                 </ToggleButton>
-                <ToggleButton value="boards" color="warning">
+                <ToggleButton value="tableau" color="warning">
                     تابلو فرش
                 </ToggleButton>
             </ToggleButtonGroup>

@@ -51,7 +51,7 @@ const AreaChartView = ({ data, xKey, yKey }) => {
   };
 
   return (
-    <ResponsiveContainer width="100%" height={300}>
+    <ResponsiveContainer width="100%" height={300} style={{margin : '0 auto'}}>
       <AreaChart data={data}>
         <CartesianGrid strokeDasharray="5 5" />
         <XAxis dataKey={xKey} tickFormatter={formatLabel} />

@@ -1,6 +1,5 @@
 "use client";
 
-import { AreaChartData } from '@/utils/areaChartData';
 import React, { useState } from 'react';
 import AreaChartView from './AreaChart';
 import { Box, Card, IconButton, Menu, MenuItem } from '@mui/material';
@@ -13,7 +12,7 @@ const options = [
     { value: "year", label: "سال" }
 ];
 
-const AreaChartComponent = () => {
+const AreaChartComponent = ({data}) => {
 
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -25,14 +24,14 @@ const AreaChartComponent = () => {
         setAnchorEl(null);
     };
 
-    // default → ماه
-    const [period, setPeriod] = useState("month");
+    // default → week
+    const [period, setPeriod] = useState("week");
 
     const periods = {
-        today: AreaChartData.today,
-        week: AreaChartData.week,
-        month: AreaChartData.month,
-        year: AreaChartData.year
+        today: data.today,
+        week: data.week,
+        month: data.month,
+        year: data.year
     };
 
     const ITEM_HEIGHT = 48;
@@ -81,15 +80,9 @@ const AreaChartComponent = () => {
             </Box>
 
             <AreaChartView
-                data={periods[period]}
-                xKey={
-                    period === "today"
-                        ? "hour"
-                        : period === "year"
-                            ? "month"
-                            : "date"
-                }
-                yKey="price"
+                data={periods[period].data}
+                xKey="label"
+                yKey="sales"
             />
         </Card>
     );
