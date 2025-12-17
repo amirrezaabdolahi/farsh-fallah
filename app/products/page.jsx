@@ -1,5 +1,4 @@
 import PageLayout from "@/components/PageLayout";
-import Product from "@/components/product/Product";
 import ProductsFilteringView from "@/components/product/ProductsFilteringView";
 import { horizontalScrollSx } from "@/components/ui/scrollbar";
 import {
@@ -13,41 +12,49 @@ import {
 import { Button, Card, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Link from "next/link";
-import React from "react";
+import React, { Suspense } from "react";
+import ProductsSkeleton from "./ProductsSkeleton";
+import ProductsClient from "./ProductsClient";
 
 const Products = async ({ searchParams }) => {
-    const { category, type } = await searchParams;
+    const branch = searchParams?.branch || "all";
+    const type = searchParams?.type || "all";
 
-    const params = new URLSearchParams();
-    
-    if (category && category !== "all") {
-        params.append("branch", category);
-    }
+    // const params = new URLSearchParams();
 
-    if (type) {
-        params.append("type", type);
-    }
+    // if (branch && branch !== "all") {
+    //     params.append("branch", branch);
+    // }
 
-    const data = await fetch(
-        `${process.env.BACKEND_API_URL}api/products/?${params.toString()}`
-    ).then((res) => res.json());
+    // if (type) {
+    //     params.append("type", type);
+    // }
 
-    let content = "";
+    // let productsData = [];
 
-    let productsData = Array.isArray(data?.results) ? data.results : [];
+    // try {
+    //     const res = await fetch(
+    //         `${process.env.BACKEND_API_URL}api/products/?${params.toString()}`
+    //     );
 
+    //     if (!res.ok) throw new Error("Fetch failed");
 
-    if (productsData.length <= 0 || !productsData) {
-        content = (
-            <Card className="w-full py-4 text-center rounded-lg!">
-                <Typography variant="body1">محصولی یافت نشد</Typography>
-            </Card>
-        );
-    } else {
-        content = productsData?.map((product) => (
-            <Product key={product.id} product={product} />
-        ));
-    }
+    //     const data = await res.json();
+    //     productsData = Array.isArray(data?.results) ? data.results : [];
+    // } catch (error) {
+    //     console.error(error);
+    // }
+
+    // const content =
+    //     productsData.length === 0 ? (
+    //         <Card className="w-full py-4 text-center rounded-lg!">
+    //             <Typography>محصولی یافت نشد</Typography>
+    //         </Card>
+    //     ) : (
+    //         productsData.map((product) => (
+    //             <Product key={product.id} product={product} />
+    //         ))
+    //     );
 
     return (
         <PageLayout>
@@ -180,7 +187,7 @@ const Products = async ({ searchParams }) => {
 
             {/* filters */}
 
-            <ProductsFilteringView category={category} />
+            <ProductsFilteringView branch={branch} />
 
             {/* tabel head */}
             <Box
@@ -208,7 +215,9 @@ const Products = async ({ searchParams }) => {
                     </Typography>
                 </Card>
                 <Box className=" w-200 lg:w-full flex flex-col gap-2 mt-2">
-                    {content}
+                    <Suspense fallback={<ProductsSkeleton />}>
+                        <ProductsClient searchParams={{ branch, type }} />
+                    </Suspense>
                 </Box>
             </Box>
         </PageLayout>

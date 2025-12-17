@@ -14,7 +14,7 @@ import {
     carpetCategories,
 } from "@/utils/productDetail"
 
-const ProductsFilteringView = ({ category }) => {
+const ProductsFilteringView = ({ branch }) => {
     // single source of truth
     const [alignment, setAlignment] = useState("all")
 
@@ -37,12 +37,12 @@ const ProductsFilteringView = ({ category }) => {
                                 href={{
                                     pathname: "/products",
                                     query: {
-                                        category: item.id,
+                                        branch: item.id,
                                         type: alignment !== "all" ? alignment : undefined,
                                     },
                                 }}
                                 className={
-                                    item.id === category
+                                    item.id === branch
                                         ? "border-b border-blue-500 text-blue-500"
                                         : ""
                                 }
