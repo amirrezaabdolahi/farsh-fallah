@@ -34,6 +34,28 @@ const Product = ({ product }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
+    const handleDelete = async (id) => {
+        if (!id) return;
+
+        try {
+            const res = await fetch(`/api/products/${id}`, {
+                method: "DELETE",
+            });
+
+            if (!res.ok) {
+                const error = await res.json().catch(() => null);
+                throw new Error(error?.message || "حذف محصول ناموفق بود");
+            }
+
+            // Optional: update state to remove the deleted product from the UI
+            console.log("Product deleted successfully");
+            // e.g., setProducts(prev => prev.filter(p => p.id !== id));
+        } catch (error) {
+            console.error("DELETE ERROR:", error);
+            alert(error.message); // or use a toast
+        }
+    };
+
     return (
         <>
             <Card
@@ -58,9 +80,15 @@ const Product = ({ product }) => {
                         </Typography>
                     </span>
                 </Box>
-                <Typography variant="subtitle1">{product.created_at.split(" - ")[0]}</Typography>
-                <Typography variant="subtitle1">{product.branch_display}</Typography>
-                <Typography variant="subtitle1" dir="ltr">{product.size}</Typography>
+                <Typography variant="subtitle1">
+                    {product.created_at.split(" - ")[0]}
+                </Typography>
+                <Typography variant="subtitle1">
+                    {product.branch_display}
+                </Typography>
+                <Typography variant="subtitle1" dir="ltr">
+                    {product.size}
+                </Typography>
                 <Typography variant="subtitle1">
                     {Number(product.sale_price).toLocaleString("fa-IR")} تومان
                 </Typography>
@@ -91,7 +119,11 @@ const Product = ({ product }) => {
                         آیا مطمعنی از حذف کردن محصول؟
                     </Typography>
                     <Box className="text-start flex gap-2">
-                        <Button variant="contained" color="error">
+                        <Button
+                            variant="contained"
+                            color="error"
+                            onClick={(e) => handleDelete(product.id)}
+                        >
                             حذف
                         </Button>
                         <Button variant="outlined" onClick={handleClose}>

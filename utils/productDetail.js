@@ -1,4 +1,3 @@
-
 export const carpetCategories = [
     { id: "all", label: "همه" },
     { id: "abrisham_qom", label: "ابریشم طرح قم" },
@@ -30,13 +29,14 @@ export const boardCategories = [
     { id: "tarikhi", label: "تاریخی" },
     { id: "manzare", label: "منظره" },
     { id: "other_tableau", label: "متفرقه" },
-]
-
-
+];
 
 export const productTypes = [
-    { id: 1, label: 'فرش' },
-    { id: 2, label: 'تابلو' }
-]
+    { id: 1, label: "فرش", value: "carpet" },
+    { id: 2, label: "تابلو", value: "tableau" },
+];
 
-export const materials = ["ابریشم", "نمیدونم اینو"]
+export const materials = [
+    { id: 1, value: "chele nakh abrisham", label: "چله نخ ابریشم" },
+    { id: 1, value: "chele abrisham", label: "چله ابریشم" },
+];

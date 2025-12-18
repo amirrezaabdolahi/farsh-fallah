@@ -1,24 +1,28 @@
-import BackWhereCome from '@/components/BackWhereCome'
-import PageLayout from '@/components/PageLayout'
-import { productsData } from '@/utils/mokaProducts'
-import ProductForm from '@/app/products/[id]/UpdateForm'
-import { productTypes, carpetCategories, materials } from '@/utils/productDetail'
+import BackWhereCome from "@/components/BackWhereCome";
+import PageLayout from "@/components/PageLayout";
+import ProductForm from "@/app/products/[id]/UpdateForm";
+import { Box, Typography } from "@mui/material";
 
 const ProductDetailsPage = async ({ params }) => {
-    const { id } = await params
+    const { id } = await params;
 
-    const rawProduct = productsData.find(
-        (p) => p.id === Number(id)
-    )
+    const res = await fetch(`${process.env.BACKEND_API_URL}api/products/${id}`);
+    const rawProduct = await res.json();
+
+    console.log(rawProduct)
 
     return (
         <PageLayout>
             <BackWhereCome />
-            <ProductForm
-                product={rawProduct}
-            />
+            {rawProduct.id ? (
+                <ProductForm product={rawProduct} />
+            ) : (
+                <Box>
+                    <Typography variant="h6">محصول یافت نشد!!!</Typography>
+                </Box>
+            )}
         </PageLayout>
-    )
-}
+    );
+};
 
-export default ProductDetailsPage
+export default ProductDetailsPage;

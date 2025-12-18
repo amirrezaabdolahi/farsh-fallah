@@ -1,125 +1,142 @@
-"use client"
+"use client";
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState } from "react";
 import {
     Autocomplete,
     Button,
     Card,
     TextField,
     Typography,
-} from "@mui/material"
-import { Box } from "@mui/system"
-import { CloudUploadRounded, SaveRounded } from "@mui/icons-material"
-import { validateProductForm } from "@/utils/validators"
-import { boardCategories, carpetCategories, materials, productTypes } from "@/utils/productDetail"
-import PageLayout from "@/components/PageLayout"
-import BackWhereCome from "@/components/BackWhereCome"
+} from "@mui/material";
+import { Box, width } from "@mui/system";
+import { CloudUploadRounded, SaveRounded } from "@mui/icons-material";
+import { validateProductForm } from "@/utils/validators";
+import {
+    boardCategories,
+    carpetCategories,
+    materials,
+    productTypes,
+} from "@/utils/productDetail";
+import PageLayout from "@/components/PageLayout";
+import BackWhereCome from "@/components/BackWhereCome";
 
 const FALLBACK_IMAGE =
-    "https://cdn.shopify.com/s/files/1/0309/9262/9899/files/celestine-soft-blue-v2-A-RC-NU010-69.jpg?v=1742921945&width=640"
+    "https://cdn.shopify.com/s/files/1/0309/9262/9899/files/celestine-soft-blue-v2-A-RC-NU010-69.jpg?v=1742921945&width=640";
 
 const EditForm = ({ handleUpdate }) => {
-    const [loading, setLoading] = useState(false)
-    const [errors, setErrors] = useState({})
-    const [preview, setPreview] = useState(FALLBACK_IMAGE)
+    const [loading, setLoading] = useState(false);
+    const [errors, setErrors] = useState({});
+    const [preview, setPreview] = useState(null);
 
-    const [formData, setFormData] = useState({
-        name: "",
-        img: FALLBACK_IMAGE,
-        description: "",
-        type: null,
-        material: null,
-        category: null,
-        unitprice: "",
-        price: "",
-        sales: 0,
-    })
+        const [formData, setFormData] = useState({
+            name: "",
+            image: null,
+            description: "",
+            type: null,
+            crop_sex: null,
+            branch: null,
+            unit_price: "",
+            sale_price: "",
+            serial_number: "",
+            size: "",
+            width: "",
+            length: "",
+        });
 
     // جلوگیری از memory leak
     useEffect(() => {
         return () => {
             if (preview?.startsWith("blob:")) {
-                URL.revokeObjectURL(preview)
+                URL.revokeObjectURL(preview);
             }
-        }
-    }, [preview])
+        };
+    }, [preview]);
 
     const handleFormDataChange = (e) => {
-        const { name, value } = e.target
+        const { name, value } = e.target;
         setFormData((prev) => ({
             ...prev,
             [name]: value,
-        }))
-    }
+        }));
+    };
 
     const handleImageChange = (e) => {
-        const file = e.target.files?.[0]
-        if (!file) return
+        const file = e.target.files?.[0];
+        if (!file) return;
 
-        const url = URL.createObjectURL(file)
-        setPreview(url)
+        const url = URL.createObjectURL(file);
+        setPreview(url);
 
         setFormData((prev) => ({
             ...prev,
-            img: file,
-        }))
-    }
+            image: file,
+        }));
+    };
 
     const handleSubmit = async () => {
-        const { isValid, errors } = validateProductForm(formData)
+        const { isValid, errors } = validateProductForm(formData);
 
         if (!isValid) {
-            setErrors(errors)
-            return
+            setErrors(errors);
+            console.log(errors);
+            return;
         }
 
-        setErrors({})
-        setLoading(true)
+        setErrors({});
+        setLoading(true);
 
-        const payload = new FormData()
-        payload.append("name", formData.name)
-        payload.append("description", formData.description)
-        payload.append("type", formData.type?.label ?? "")
-        payload.append("material", formData.material ?? "")
-        payload.append("category", formData.category ?? "")
-        payload.append("unitprice", Number(formData.unitprice))
-        payload.append("price", Number(formData.price))
-        payload.append("sales", Number(formData.sales))
+        const payload = new FormData();
+        payload.append("name", formData.name);
+        payload.append("serial_number", formData.serial_number ?? "");
+        payload.append("description", formData.description);
+        payload.append("type", formData.type?.value ?? "");
+        payload.append("crop_sex", formData.crop_sex.value ?? "");
+        payload.append("branch", formData.branch?.id ?? "");
+        payload.append("unit_price", Number(formData.unit_price));
+        payload.append("sale_price", Number(formData.sale_price));
 
-        if (formData.img instanceof File) {
-            payload.append("img", formData.img)
+        // Optional fields based on type
+        if (formData.type === productTypes[0]) {
+            payload.append("size", formData.size?.id ?? "");
+        } else {
+            payload.append("width", formData.width ?? "");
+            payload.append("length", formData.length ?? "");
+        }
+
+        if (formData.image instanceof File) {
+            payload.append("image", formData.image);
         }
 
         try {
-            // const res = await fetch(`/api/products/${product.id}`, {
-            //   method: "PUT",
-            //   body: payload,
-            // })
+            const res = await fetch(`/api/products/`, {
+                method: "POST",
+                body: payload,
+            });
 
-            // if (!res.ok) {
-            //   throw new Error("Update failed")
-            // }
+            if (!res.ok) {
+                throw new Error("Update failed");
+            }
 
-            for (const [key, value] of payload.entries()) { console.log(key, value) }
+            for (const [key, value] of payload.entries()) {
+                console.log(key, value);
+            }
 
             // TODO: toast / redirect / refresh
-            console.log("Product updated successfully")
+            console.log("Product updated successfully");
         } catch (err) {
-            console.error(err)
+            console.error(err);
         } finally {
-            setLoading(false)
+            setLoading(false);
         }
-    }
+    };
 
     return (
         <PageLayout>
             <BackWhereCome />
             <Box className="flex items-center justify-center">
                 <Box className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full">
-
                     {/* ---------- FORM ---------- */}
                     <Card className="flex flex-col gap-6 p-4">
-
                         <TextField
                             label="نام محصول"
                             name="name"
@@ -128,6 +145,16 @@ const EditForm = ({ handleUpdate }) => {
                             onChange={handleFormDataChange}
                             error={Boolean(errors.name)}
                             helperText={errors.name}
+                        />
+
+                        <TextField
+                            label="شماره شناسه"
+                            name="serial_number"
+                            size="small"
+                            value={formData.serial_number}
+                            onChange={handleFormDataChange}
+                            error={Boolean(errors.serial_number)}
+                            helperText={errors.serial_number}
                         />
 
                         <Box className="flex gap-2 w-full">
@@ -139,35 +166,105 @@ const EditForm = ({ handleUpdate }) => {
                                     setFormData((p) => ({ ...p, type: v }))
                                 }
                                 renderInput={(params) => (
-                                    <TextField {...params} label="نوع" size="small" error={!!errors.type} />
+                                    <TextField
+                                        {...params}
+                                        label="نوع"
+                                        size="small"
+                                        error={!!errors.type}
+                                    />
                                 )}
                             />
 
                             <Autocomplete
                                 className="w-full"
                                 options={materials}
-                                value={formData.material}
+                                value={formData.crop_sex}
                                 onChange={(_, v) =>
-                                    setFormData((p) => ({ ...p, material: v }))
+                                    setFormData((p) => ({ ...p, crop_sex: v }))
                                 }
                                 disabled={!formData.type}
                                 renderInput={(params) => (
-                                    <TextField {...params} label="جنس" size="small" error={!!errors.material} />
+                                    <TextField
+                                        {...params}
+                                        label="جنس"
+                                        size="small"
+                                        error={!!errors.crop_sex}
+                                    />
                                 )}
                             />
                         </Box>
 
                         <Autocomplete
-                            options={formData.type === productTypes[0] ? carpetCategories : boardCategories}
-                            value={formData.category}
+                            options={
+                                formData.type === productTypes[0]
+                                    ? carpetCategories
+                                    : boardCategories
+                            }
+                            value={formData.branch}
                             disabled={!formData.type}
                             onChange={(_, v) =>
-                                setFormData((p) => ({ ...p, category: v }))
+                                setFormData((p) => ({ ...p, branch: v }))
                             }
                             renderInput={(params) => (
-                                <TextField {...params} label="طرح" size="small" error={!!errors.category} />
+                                <TextField
+                                    {...params}
+                                    label="طرح"
+                                    size="small"
+                                    error={!!errors.branch}
+                                />
                             )}
                         />
+
+                        {formData.type === productTypes[0] ? (
+                            <Autocomplete
+                                options={[
+                                    { id: 1.5, label: "زرع و نیم" },
+                                    { id: 3, label: "قالیچه" },
+                                    { id: 6, label: "6 متری" },
+                                    { id: 9, label: "9 متری" },
+                                    { id: 12, label: "12 متری" },
+                                ]}
+                                value={formData.size || null}
+                                disabled={!formData.type}
+                                // تغییر از branch به size برای هماهنگی
+                                onChange={(_, v) =>
+                                    setFormData((p) => ({ ...p, size: v }))
+                                }
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="اندازه"
+                                        size="small"
+                                        error={!!errors.size}
+                                    />
+                                )}
+                            />
+                        ) : formData.type === productTypes[1] ? (
+                            <div style={{ display: "flex", gap: "10px" }}>
+                                <TextField
+                                    label="طول"
+                                    name="width" // نام متفاوت برای طول
+                                    size="small"
+                                    type="number"
+                                    placeholder="مثلا 200"
+                                    value={formData.width}
+                                    onChange={handleFormDataChange}
+                                    error={Boolean(errors.width)}
+                                    fullWidth
+                                />
+                                <TextField
+                                    label="عرض"
+                                    name="length" // نام متفاوت برای عرض
+                                    size="small"
+                                    type="number"
+                                    placeholder="مثلا 300"
+                                    value={formData.length}
+                                    onChange={handleFormDataChange}
+                                    error={Boolean(errors.length)}
+                                    fullWidth
+                                />
+                            </div>
+                        ) : null}
 
                         <TextField
                             label="توضیحات"
@@ -184,25 +281,25 @@ const EditForm = ({ handleUpdate }) => {
                         <Box className="flex gap-2">
                             <TextField
                                 label="قیمت خرید"
-                                name="unitprice"
+                                name="unit_price"
                                 size="small"
                                 type="number"
-                                value={formData.unitprice}
+                                value={formData.unit_price}
                                 onChange={handleFormDataChange}
-                                error={Boolean(errors.unitprice)}
-                                helperText={errors.unitprice}
+                                error={Boolean(errors.unit_price)}
+                                helperText={errors.unit_price}
                                 fullWidth
                             />
 
                             <TextField
                                 label="قیمت فروش"
-                                name="price"
+                                name="sale_price"
                                 size="small"
                                 type="number"
-                                value={formData.price}
+                                value={formData.sale_price}
                                 onChange={handleFormDataChange}
-                                error={Boolean(errors.price)}
-                                helperText={errors.price}
+                                error={Boolean(errors.sale_price)}
+                                helperText={errors.sale_price}
                                 fullWidth
                             />
                         </Box>
@@ -251,7 +348,7 @@ const EditForm = ({ handleUpdate }) => {
                 </Box>
             </Box>
         </PageLayout>
-    )
-}
+    );
+};
 
-export default EditForm
+export default EditForm;
