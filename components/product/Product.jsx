@@ -15,6 +15,7 @@ import {
     Modal,
     Typography,
 } from "@mui/material";
+import { redirect } from "next/dist/server/api-utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -50,6 +51,7 @@ const Product = ({ product }) => {
 
             // Optional: update state to remove the deleted product from the UI
             console.log("Product deleted successfully");
+            redirect("/products")
             // e.g., setProducts(prev => prev.filter(p => p.id !== id));
         } catch (error) {
             console.error("DELETE ERROR:", error);

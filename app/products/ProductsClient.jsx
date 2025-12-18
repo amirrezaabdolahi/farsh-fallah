@@ -13,13 +13,20 @@ const ProductsClient = ({ searchParams }) => {
 
     const loaderRef = useRef(null);
 
-    const { branch, type , search } = searchParams;
+    const { branch, type, search } = searchParams;
 
     const fetchPage = async (pageNumber) => {
         if (loading) return;
 
         setLoading(true);
-        const data = await fetchProducts({ branch, type , search , page: pageNumber });
+        const data = await fetchProducts({
+            branch,
+            type,
+            search,
+            page: pageNumber,
+        });
+
+        console.log(data)
 
         setProducts((prev) =>
             pageNumber === 1 ? data.results : [...prev, ...data.results]
@@ -32,7 +39,7 @@ const ProductsClient = ({ searchParams }) => {
 
     useEffect(() => {
         fetchPage(1);
-    }, [branch, type]);
+    }, [branch, type, search]);
 
     useEffect(() => {
         if (!loaderRef.current || !isMore) return;
@@ -61,7 +68,7 @@ const ProductsClient = ({ searchParams }) => {
 
     return (
         <>
-            {products.map((p) => (
+            {products?.map((p) => (
                 <Product key={p.id} product={p} />
             ))}
 

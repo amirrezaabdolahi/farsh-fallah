@@ -29,20 +29,15 @@ const EditForm = ({ product }) => {
         name: product?.name ?? "",
         image: product?.image ?? null,
         description: product?.description ?? "",
-        type:
-            product?.type == "tableau"
-                ? productTypes[1]
-                : productTypes[0]
-                ? product?.type
-                : null,
+        type: productTypes.find((t) => t.value === product?.type) || null,
         crop_sex: product?.crop_sex ?? null,
         branch: product?.branch ?? null,
         unit_price: product?.unit_price ?? "",
         sale_price: product?.sale_price ?? "",
         serial_number: product?.serial_number || "",
-        size: product?.size ?? "",
+        size: product?.size || "",
         width: product?.width || "",
-        length: product?.length ||  "",
+        length: product?.length || "",
     });
     // جلوگیری از memory leak
     useEffect(() => {
@@ -91,14 +86,14 @@ const EditForm = ({ product }) => {
         payload.append("serial_number", formData.serial_number ?? "");
         payload.append("description", formData.description);
         payload.append("type", formData.type?.value ?? "");
-        payload.append("crop_sex", formData.crop_sex.value ?? "");
-        payload.append("branch", formData.branch?.id ?? "");
+        payload.append("crop_sex", formData.crop_sex ?? "");
+        payload.append("branch", formData.branch ?? "");
         payload.append("unit_price", Number(formData.unit_price));
         payload.append("sale_price", Number(formData.sale_price));
 
         // Optional fields based on type
         if (formData.type === productTypes[0]) {
-            payload.append("size", formData.size?.id ?? "");
+            payload.append("size", formData.size ?? "");
         } else {
             payload.append("width", formData.width ?? "");
             payload.append("length", formData.length ?? "");

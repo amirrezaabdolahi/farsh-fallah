@@ -22,13 +22,22 @@ import React, { useState } from "react";
 
 const ProductPageSeach = () => {
     const [search, setSearch] = useState("");
-    const router = useRouter()
+    const router = useRouter();
 
-    const handleSearch = async () => {
-        let value = search.trim();
-        if (!value) return;
+    const handleSearch = () => {
+        const params = new URLSearchParams();
 
-        router.push(`/products?search=${encodeURIComponent(value)}`);
+        const value = search.trim();
+
+        if (value) {
+            // set search param if there is input
+            params.set("search", value);
+        } else {
+            // delete search param if input is empty
+            params.delete("search");
+        }
+
+        router.push(`/products?${params.toString()}`);
     };
 
     return (
@@ -40,20 +49,15 @@ const ProductPageSeach = () => {
             </Box>
             <Box className="hidden md:flex items-center gap-4 ">
                 <FormControl sx={{ m: 1, width: "25ch" }} variant="outlined">
-                    <InputLabel
-                        htmlFor="outlined-adornment-password"
-                        size="small"
-                    >
+                    <InputLabel htmlFor="search-input" size="small">
                         جست و جو
                     </InputLabel>
                     <OutlinedInput
                         size="small"
-                        id="outlined-adornment-password"
-                        onChange={(e) => setSearch(e.target.value)}
+                        id="search-input"
                         value={search}
-                        onKeyDown={(e) => {
-                            if (e.code == "Enter") handleSearch();
-                        }}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
                         endAdornment={
                             <InputAdornment position="end">
                                 <IconButton onClick={handleSearch} edge="end">
@@ -61,7 +65,7 @@ const ProductPageSeach = () => {
                                 </IconButton>
                             </InputAdornment>
                         }
-                        label="Password"
+                        label="جست و جو"
                     />
                 </FormControl>
                 <Link href="products/add">

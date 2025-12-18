@@ -5,12 +5,15 @@ export const fetchProducts = async ({ branch, type, search, page = 1 }) => {
 
         if (branch && branch !== "all") params.append("branch", branch);
         if (type && type !== "all") params.append("type", type);
-        if (search) params.append("search", search);
+        if (search?.trim()) params.append("search", search.trim());
+
         params.append("page", page);
 
         const res = await fetch(`/api/products/?${params.toString()}`, {
-            cache: "no-store", // همیشه آخرین داده رو بگیره
+            cache: "no-store",
         });
+
+        console.log("this is res in fetch : ", res);
 
         if (!res.ok) throw new Error("Fetch failed");
 

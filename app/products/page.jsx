@@ -23,42 +23,6 @@ const Products = ({ searchParams }) => {
     const type = searchParams?.type || "all";
     const search = searchParams?.search?.trim() || ''
 
-    // const params = new URLSearchParams();
-
-    // if (branch && branch !== "all") {
-    //     params.append("branch", branch);
-    // }
-
-    // if (type) {
-    //     params.append("type", type);
-    // }
-
-    // let productsData = [];
-
-    // try {
-    //     const res = await fetch(
-    //         `${process.env.BACKEND_API_URL}api/products/?${params.toString()}`
-    //     );
-
-    //     if (!res.ok) throw new Error("Fetch failed");
-
-    //     const data = await res.json();
-    //     productsData = Array.isArray(data?.results) ? data.results : [];
-    // } catch (error) {
-    //     console.error(error);
-    // }
-
-    // const content =
-    //     productsData.length === 0 ? (
-    //         <Card className="w-full py-4 text-center rounded-lg!">
-    //             <Typography>محصولی یافت نشد</Typography>
-    //         </Card>
-    //     ) : (
-    //         productsData.map((product) => (
-    //             <Product key={product.id} product={product} />
-    //         ))
-    //     );
-
     return (
         <PageLayout>
             
