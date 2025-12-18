@@ -6,6 +6,7 @@ export async function GET(req) {
     const branch = searchParams.get("branch");
     const type = searchParams.get("type");
     const page = searchParams.get("page");
+    const search = searchParams.get("search")
 
     const params = new URLSearchParams();
 
@@ -15,6 +16,10 @@ export async function GET(req) {
 
     if (type) {
         params.append("type", type);
+    }
+
+    if (search) {
+        params.append("search" , search)
     }
 
     params.append("page", page);
@@ -32,7 +37,7 @@ export async function GET(req) {
             }
         );
 
-        if (!res.ok) {
+        if (!res.results) {
             return NextResponse.json(
                 { message: "Backend error" },
                 { status: 500 }

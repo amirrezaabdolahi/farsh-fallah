@@ -13,13 +13,13 @@ const ProductsClient = ({ searchParams }) => {
 
     const loaderRef = useRef(null);
 
-    const { branch, type } = searchParams;
+    const { branch, type , search } = searchParams;
 
     const fetchPage = async (pageNumber) => {
         if (loading) return;
 
         setLoading(true);
-        const data = await fetchProducts({ branch, type, page: pageNumber });
+        const data = await fetchProducts({ branch, type , search , page: pageNumber });
 
         setProducts((prev) =>
             pageNumber === 1 ? data.results : [...prev, ...data.results]

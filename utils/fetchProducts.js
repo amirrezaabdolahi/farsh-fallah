@@ -1,10 +1,11 @@
 // utils/fetchProducts.js
-export const fetchProducts = async ({ branch, type, page = 1 }) => {
+export const fetchProducts = async ({ branch, type, search, page = 1 }) => {
     try {
         const params = new URLSearchParams();
 
         if (branch && branch !== "all") params.append("branch", branch);
         if (type && type !== "all") params.append("type", type);
+        if (search) params.append("search", search);
         params.append("page", page);
 
         const res = await fetch(`/api/products/?${params.toString()}`, {

@@ -15,6 +15,7 @@ import {
     Modal,
     Typography,
 } from "@mui/material";
+import Image from "next/image";
 import Link from "next/link";
 import React from "react";
 
@@ -64,9 +65,26 @@ const Product = ({ product }) => {
                 className="w-full rounded-xl! border border-gray-200 py-4 px-6 flex items-center justify-between"
             >
                 <Box className="flex items-center gap-2">
-                    <Avatar src="https://mui.com/static/images/avatar/1.jpg">
-                        P
-                    </Avatar>
+                    <Box
+                        className="w-13 h-13 rounded-full overflow-hidden flex items-center justify-center"
+                        bgcolor="lightgray"
+                    >
+                        {product?.image ? (
+                            <Image
+                                src={product.image}
+                                alt={product?.name || "product image"}
+                                width={100}
+                                height={100}
+                                className="w-full h-full object-cover"
+                                quality={50}
+                            />
+                        ) : (
+                            <Typography variant="body1" fontWeight="bold">
+                                {product?.name?.[0]?.toUpperCase() || "?"}
+                            </Typography>
+                        )}
+                    </Box>
+
                     <span>
                         <Typography variant="subtitle1">
                             {product.name}
