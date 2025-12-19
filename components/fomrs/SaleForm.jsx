@@ -1,10 +1,12 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
+    Autocomplete,
     Avatar,
     Box,
     Button,
+    Card,
     FormControl,
     InputLabel,
     MenuItem,
@@ -15,24 +17,55 @@ import {
 import { CloseRounded, CachedRounded } from "@mui/icons-material";
 import { locations } from "@/utils/locations";
 import { validateSaleForm } from "@/utils/validators";
+import Image from "next/image";
 
 const areas = Array.from({ length: 22 }, (_, i) => i + 1);
 
-const SaleForm = ({ options = [] }) => {
+const SaleForm = ({}) => {
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
 
+    const [products, setProducts] = useState([]);
+    const [page, setPage] = useState(1);
+    const [hasMore, setHasMore] = useState(true);
+    const [loadingProducts, setLoadingProducts] = useState(false);
+
+    const [items, setItems] = useState([]);
+
+    const fetchProductsPage = async (pageNumber = 1) => {
+        if (loadingProducts || !hasMore) return;
+
+        setLoadingProducts(true);
+
+        try {
+            const res = await fetch(`/api/products?page=${pageNumber}`);
+            if (!res.ok) throw new Error("fetch failed");
+
+            const data = await res.json();
+
+            setProducts((prev) =>
+                pageNumber === 1 ? data.results : [...prev, ...data.results]
+            );
+            setHasMore(Boolean(data.next));
+            setPage(pageNumber);
+        } catch (e) {
+            console.error(e);
+        } finally {
+            setLoadingProducts(false);
+        }
+    };
+
+    useEffect(() => {
+        fetchProductsPage(1);
+    }, []);
+
     const [form, setForm] = useState({
-        product: "",
-        quantity: 1,
-        date: new Date().toISOString().slice(0, 10),
-        discount: "",
         phone: "",
         name: "",
         province: "",
         city: "",
         area: "",
-        description: "",
+        address: "",
     });
 
     const setValue = (key, value) => {
@@ -52,84 +85,198 @@ const SaleForm = ({ options = [] }) => {
         (p) => p.province === form.province
     );
 
-    const handleSubmit = () => {
-        const { isValid, errors } = validateSaleForm(form);
+    const handleSubmit = async () => {
+        const { isValid, errors } = validateSaleForm(form, items);
 
         if (!isValid) {
             setErrors(errors);
+            console.log(errors);
             return;
         }
+
+        const payload = {
+            customer_name: form.name,
+            customer_phone: form.phone,
+            customer_city: form.city,
+            customer_state: form.area,
+            customer_region: form.province,
+            customer_address: form.address,
+            items: items.map((i) => ({
+                product: i.product.id,
+                discount: Number(i.discount),
+            })),
+        };
 
         setErrors({});
         setLoading(true);
 
         try {
-            
-            console.log("SALE PAYLOAD", form);
+            const res = await fetch(`/api/order`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    // Authorization: `Token ${process.env.BACKEND_API_TOKEN}`, // اگه نیاز باشه
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (!res.ok) {
+                console.log("error when sending data");
+            }
+
+            const data = await res.json()
+
+            console.log(data.success);
         } finally {
             setLoading(false);
         }
     };
-
+    useEffect(() => {
+        console.log("products length:", products.length);
+    }, [products]);
     return (
         <Box className="flex flex-col gap-3 mt-2">
             <Typography variant="subtitle1">محصول</Typography>
 
-            <FormControl fullWidth error={!!errors.product}>
-                <InputLabel>محصول</InputLabel>
-                <Select
-                    value={form.product}
-                    label="محصول"
-                    onChange={(e) => setValue("product", e.target.value)}
-                >
-                    {options.length ? (
-                        options.map((o) => (
-                            <MenuItem key={o.id} value={o.id}>
-                                <Box className="flex items-center gap-2">
-                                    <Avatar
-                                        src={o.avatar}
-                                        sx={{ width: 32, height: 32 }}
-                                    />
-                                    <Typography>{o.name}</Typography>
+            <Box>
+                <Autocomplete
+                    multiple
+                    options={products}
+                    value={items.map((i) => i.product)}
+                    onChange={(_, values) => {
+                        setItems((prev) =>
+                            values.map((p) => {
+                                const existing = prev.find(
+                                    (i) => i.product.id === p.id
+                                );
+                                return existing || { product: p, discount: 0 };
+                            })
+                        );
+                    }}
+                    getOptionLabel={(o) => o.name}
+                    isOptionEqualToValue={(o, v) => o.id === v.id}
+                    ListboxProps={{
+                        onScroll: (e) => {
+                            const listbox = e.currentTarget;
+                            if (
+                                listbox.scrollTop + listbox.clientHeight >=
+                                listbox.scrollHeight - 5
+                            ) {
+                                if (hasMore && !loadingProducts) {
+                                    fetchProductsPage(page + 1);
+                                }
+                            }
+                        },
+                    }}
+                    renderOption={(props, option) => {
+                        const { key, ...otherProps } = props;
+
+                        return (
+                            <Box component="li" key={key} {...otherProps}>
+                                <Box
+                                    key={option.id}
+                                    className=" rounded-full overflow-hidden bg-gray-400 ml-2 flex items-center justify-center"
+                                    sx={{ width: 24, height: 24 }}
+                                >
+                                    {option.image ? (
+                                        <Image
+                                            src={option?.image}
+                                            alt={option.name}
+                                            quality={30}
+                                            className="w-full object-cover"
+                                            width={30}
+                                            height={30}
+                                        />
+                                    ) : (
+                                        <Typography variant="body2">
+                                            {option?.name[0]}
+                                        </Typography>
+                                    )}
                                 </Box>
-                            </MenuItem>
-                        ))
-                    ) : (
-                        <MenuItem>
-                            <CachedRounded className="animate-spin" />
-                        </MenuItem>
+                                <Typography>{option.name}</Typography>
+                            </Box>
+                        );
+                    }}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="محصول"
+                            InputProps={{
+                                ...params.InputProps,
+                                endAdornment: (
+                                    <>
+                                        {loadingProducts && (
+                                            <CachedRounded className="animate-spin" />
+                                        )}
+                                        {params.InputProps.endAdornment}
+                                    </>
+                                ),
+                            }}
+                        />
                     )}
-                </Select>
-            </FormControl>
-
-            <Box className="flex gap-2">
-                <TextField
-                    label="تعداد"
-                    type="number"
-                    value={form.quantity}
-                    onChange={(e) =>
-                        setValue("quantity", Number(e.target.value))
-                    }
-                    error={!!errors.quantity}
-                    helperText={errors.quantity}
-                    fullWidth
-                />
-
-                <TextField
-                    label="تاریخ"
-                    type="date"
-                    value={form.date}
-                    onChange={(e) => setValue("date", e.target.value)}
-                    InputLabelProps={{ shrink: true }}
-                    fullWidth
                 />
             </Box>
 
-            <TextField
-                label="کد تخفیف"
-                value={form.discount}
-                onChange={(e) => setValue("discount", e.target.value)}
-            />
+            <Box className="flex flex-col gap-2">
+                {items.length !== 0 ? (
+                    <>
+                        {items.map((item) => (
+                            <Card
+                                key={item.product.id}
+                                className="p-2 border border-gray-200"
+                            >
+                                <Box className="flex items-center gap-2 mb-2">
+                                    <Box
+                                        className=" rounded-full overflow-hidden bg-gray-400 ml-2 flex items-center justify-center"
+                                        sx={{ width: 24, height: 24 }}
+                                    >
+                                        {item.product.image ? (
+                                            <Image
+                                                src={item.product?.image}
+                                                alt={item.product.name}
+                                                quality={50}
+                                                className="w-full object-cover"
+                                                width={50}
+                                                height={50}
+                                            />
+                                        ) : (
+                                            <Typography variant="body2">
+                                                {item.product?.name[0]}
+                                            </Typography>
+                                        )}
+                                    </Box>
+                                    <Typography variant="body1">
+                                        {item.product.name}
+                                    </Typography>
+                                </Box>
+                                <TextField
+                                    size="small"
+                                    label="تخفیف"
+                                    value={item.discount}
+                                    type="number"
+                                    onChange={(e) => {
+                                        const value = e.target.value;
+                                        setItems((prev) =>
+                                            prev.map((it, i) =>
+                                                it.product.id ===
+                                                item.product.id
+                                                    ? { ...it, discount: value }
+                                                    : it
+                                            )
+                                        );
+                                    }}
+                                />
+                            </Card>
+                        ))}
+                    </>
+                ) : (
+                    <Card className="rounded-lg! flex items-center justify-center py-2">
+                        <Typography variant="body2">
+                            هیچ محصولی انتخاب نشده
+                        </Typography>
+                    </Card>
+                )}
+            </Box>
 
             <Typography variant="subtitle1">مشخصات مشتری</Typography>
 
@@ -201,11 +348,11 @@ const SaleForm = ({ options = [] }) => {
             </Box>
 
             <TextField
-                label="توضیحات"
+                label="آدرس"
                 multiline
                 rows={3}
-                value={form.description}
-                onChange={(e) => setValue("description", e.target.value)}
+                value={form.address}
+                onChange={(e) => setValue("address", e.target.value)}
             />
 
             <Box className="flex gap-2">

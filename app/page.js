@@ -73,7 +73,7 @@ export default async function Home() {
                         <div className="">
                             <Typography
                                 variant="h6"
-                                className="mb-2 text-gray-700"
+                                className="mb-2 "
                             >
                                 {card.title}
                             </Typography>

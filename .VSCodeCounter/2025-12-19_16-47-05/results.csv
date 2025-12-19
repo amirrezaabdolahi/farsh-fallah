@@ -1,0 +1,62 @@
+"filename", "language", "XML", "JSON", "Markdown", "JavaScript", "JavaScript JSX", "JSON with Comments", "PostCSS", "comment", "blank", "total"
+"c:\Users\Digiyol.com\Desktop\fallah-project\.idea\fallah-project.iml", "XML", 8, 0, 0, 0, 0, 0, 0, 0, 0, 8
+"c:\Users\Digiyol.com\Desktop\fallah-project\.idea\inspectionProfiles\profiles_settings.xml", "XML", 6, 0, 0, 0, 0, 0, 0, 0, 0, 6
+"c:\Users\Digiyol.com\Desktop\fallah-project\.idea\misc.xml", "XML", 7, 0, 0, 0, 0, 0, 0, 0, 0, 7
+"c:\Users\Digiyol.com\Desktop\fallah-project\.idea\modules.xml", "XML", 8, 0, 0, 0, 0, 0, 0, 0, 0, 8
+"c:\Users\Digiyol.com\Desktop\fallah-project\.idea\vcs.xml", "XML", 6, 0, 0, 0, 0, 0, 0, 0, 0, 6
+"c:\Users\Digiyol.com\Desktop\fallah-project\README.md", "Markdown", 0, 0, 23, 0, 0, 0, 0, 0, 14, 37
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\api\order\route.js", "JavaScript JSX", 0, 0, 0, 0, 42, 0, 0, 1, 9, 52
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\api\products\[id]\route.js", "JavaScript JSX", 0, 0, 0, 0, 72, 0, 0, 0, 14, 86
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\api\products\route.js", "JavaScript JSX", 0, 0, 0, 0, 68, 0, 0, 0, 16, 84
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\globals.css", "PostCSS", 0, 0, 0, 0, 0, 0, 33, 2, 6, 41
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\layout.js", "JavaScript JSX", 0, 0, 0, 0, 35, 0, 0, 1, 4, 40
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\page.js", "JavaScript JSX", 0, 0, 0, 0, 136, 0, 0, 2, 11, 149
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\products\ProductPageHeader.jsx", "JavaScript JSX", 0, 0, 0, 0, 100, 0, 0, 0, 3, 103
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\products\ProductPageSeach.jsx", "JavaScript JSX", 0, 0, 0, 0, 80, 0, 0, 2, 8, 90
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\products\ProductsClient.jsx", "JavaScript JSX", 0, 0, 0, 0, 67, 0, 0, 0, 20, 87
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\products\ProductsSkeleton.jsx", "JavaScript JSX", 0, 0, 0, 0, 14, 0, 0, 0, 2, 16
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\products\[id]\UpdateForm.jsx", "JavaScript JSX", 0, 0, 0, 0, 312, 0, 0, 6, 31, 349
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\products\[id]\page.jsx", "JavaScript JSX", 0, 0, 0, 0, 23, 0, 0, 0, 6, 29
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\products\add\page.jsx", "JavaScript JSX", 0, 0, 0, 0, 316, 0, 0, 6, 33, 355
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\products\page.jsx", "JavaScript JSX", 0, 0, 0, 0, 62, 0, 0, 4, 10, 76
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\sale\history\page.jsx", "JavaScript JSX", 0, 0, 0, 0, 46, 0, 0, 0, 4, 50
+"c:\Users\Digiyol.com\Desktop\fallah-project\app\sale\page.jsx", "JavaScript JSX", 0, 0, 0, 0, 155, 0, 0, 0, 6, 161
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\BackWhereCome.jsx", "JavaScript JSX", 0, 0, 0, 0, 26, 0, 0, 0, 7, 33
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\FileUpload.jsx", "JavaScript JSX", 0, 0, 0, 0, 20, 0, 0, 0, 8, 28
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\Navbar.jsx", "JavaScript JSX", 0, 0, 0, 0, 32, 0, 0, 0, 7, 39
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\PageLayout.jsx", "JavaScript JSX", 0, 0, 0, 0, 9, 0, 0, 0, 2, 11
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\ThemeContext.jsx", "JavaScript JSX", 0, 0, 0, 0, 37, 0, 0, 0, 9, 46
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\UploadImage.jsx", "JavaScript JSX", 0, 0, 0, 0, 241, 0, 0, 7, 23, 271
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\charts\AreaChart.jsx", "JavaScript JSX", 0, 0, 0, 0, 66, 0, 0, 5, 15, 86
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\charts\AreaChartComponent.jsx", "JavaScript JSX", 0, 0, 0, 0, 78, 0, 0, 1, 13, 92
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\charts\BarChart.jsx", "JavaScript JSX", 0, 0, 0, 0, 73, 0, 0, 0, 5, 78
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\charts\ChartFiterComponent.jsx", "JavaScript JSX", 0, 0, 0, 0, 21, 0, 0, 0, 5, 26
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\fomrs\CustomerForm.jsx", "JavaScript JSX", 0, 0, 0, 0, 55, 0, 0, 3, 13, 71
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\fomrs\SaleForm.jsx", "JavaScript JSX", 0, 0, 0, 0, 339, 0, 0, 1, 37, 377
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\product\Product.jsx", "JavaScript JSX", 0, 0, 0, 0, 146, 0, 0, 3, 11, 160
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\product\ProductsFilteringView.jsx", "JavaScript JSX", 0, 0, 0, 0, 67, 0, 0, 4, 8, 79
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\product\SelectProduct.jsx", "JavaScript JSX", 0, 0, 0, 0, 48, 0, 0, 1, 6, 55
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\ui\LoadingSection.jsx", "JavaScript JSX", 0, 0, 0, 0, 13, 0, 0, 0, 4, 17
+"c:\Users\Digiyol.com\Desktop\fallah-project\components\ui\scrollbar.js", "JavaScript JSX", 0, 0, 0, 0, 19, 0, 0, 1, 5, 25
+"c:\Users\Digiyol.com\Desktop\fallah-project\eslint.config.mjs", "JavaScript", 0, 0, 0, 21, 0, 0, 0, 0, 5, 26
+"c:\Users\Digiyol.com\Desktop\fallah-project\jsconfig.json", "JSON with Comments", 0, 0, 0, 0, 0, 7, 0, 0, 1, 8
+"c:\Users\Digiyol.com\Desktop\fallah-project\next.config.mjs", "JavaScript", 0, 0, 0, 13, 0, 0, 0, 1, 2, 16
+"c:\Users\Digiyol.com\Desktop\fallah-project\package-lock.json", "JSON", 0, 7171, 0, 0, 0, 0, 0, 0, 1, 7172
+"c:\Users\Digiyol.com\Desktop\fallah-project\package.json", "JSON", 0, 30, 0, 0, 0, 0, 0, 0, 1, 31
+"c:\Users\Digiyol.com\Desktop\fallah-project\postcss.config.mjs", "JavaScript", 0, 0, 0, 4, 0, 0, 0, 0, 2, 6
+"c:\Users\Digiyol.com\Desktop\fallah-project\public\file.svg", "XML", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Digiyol.com\Desktop\fallah-project\public\globe.svg", "XML", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Digiyol.com\Desktop\fallah-project\public\next.svg", "XML", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Digiyol.com\Desktop\fallah-project\public\vercel.svg", "XML", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Digiyol.com\Desktop\fallah-project\public\window.svg", "XML", 1, 0, 0, 0, 0, 0, 0, 0, 0, 1
+"c:\Users\Digiyol.com\Desktop\fallah-project\utils\areaChartData.js", "JavaScript JSX", 0, 0, 0, 0, 83, 0, 0, 0, 4, 87
+"c:\Users\Digiyol.com\Desktop\fallah-project\utils\fetchOrders.js", "JavaScript JSX", 0, 0, 0, 0, 18, 0, 0, 0, 5, 23
+"c:\Users\Digiyol.com\Desktop\fallah-project\utils\fetchProducts.js", "JavaScript JSX", 0, 0, 0, 0, 20, 0, 0, 1, 7, 28
+"c:\Users\Digiyol.com\Desktop\fallah-project\utils\fetchProductsPage.js", "JavaScript JSX", 0, 0, 0, 0, 16, 0, 0, 0, 5, 21
+"c:\Users\Digiyol.com\Desktop\fallah-project\utils\locations.js", "JavaScript JSX", 0, 0, 0, 0, 398, 0, 0, 0, 1, 399
+"c:\Users\Digiyol.com\Desktop\fallah-project\utils\mokaProducts.js", "JavaScript JSX", 0, 0, 0, 0, 170, 0, 0, 0, 1, 171
+"c:\Users\Digiyol.com\Desktop\fallah-project\utils\mokaSaleHistory.js", "JavaScript JSX", 0, 0, 0, 0, 102, 0, 0, 0, 1, 103
+"c:\Users\Digiyol.com\Desktop\fallah-project\utils\productDetail.js", "JavaScript JSX", 0, 0, 0, 0, 66, 0, 0, 0, 5, 71
+"c:\Users\Digiyol.com\Desktop\fallah-project\utils\rugsLink.js", "JavaScript JSX", 0, 0, 0, 0, 18, 0, 0, 0, 1, 19
+"c:\Users\Digiyol.com\Desktop\fallah-project\utils\validators.js", "JavaScript JSX", 0, 0, 0, 0, 66, 0, 0, 0, 18, 84
+"Total", "-", 40, 7201, 23, 38, 3775, 7, 33, 52, 435, 11604

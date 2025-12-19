@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import Product from "@/components/product/Product";
 import ProductsSkeleton from "./ProductsSkeleton";
 import { fetchProducts } from "@/utils/fetchProducts";
+import { Card, Typography } from "@mui/material";
 
 const ProductsClient = ({ searchParams }) => {
     const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ const ProductsClient = ({ searchParams }) => {
 
     const loaderRef = useRef(null);
 
-    const { branch, type, search } = searchParams;
+    const { branch, type , search } = searchParams;
 
     const fetchPage = async (pageNumber) => {
         if (loading) return;
@@ -25,8 +26,6 @@ const ProductsClient = ({ searchParams }) => {
             search,
             page: pageNumber,
         });
-
-        console.log(data)
 
         setProducts((prev) =>
             pageNumber === 1 ? data.results : [...prev, ...data.results]
@@ -68,7 +67,12 @@ const ProductsClient = ({ searchParams }) => {
 
     return (
         <>
-            {products?.map((p) => (
+            {
+                products.length === 0 && (<Card ><Typography className="h5">
+                    not found
+                </Typography></Card>)
+            }
+            {products.map((p) => (
                 <Product key={p.id} product={p} />
             ))}
 

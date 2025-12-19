@@ -1,0 +1,116 @@
+Date : 2025-12-19 16:47:05
+Directory : c:\Users\Digiyol.com\Desktop\fallah-project
+Total : 60 files,  11117 codes, 52 comments, 435 blanks, all 11604 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          2 |      7,201 |          0 |          2 |      7,203 |
+| JavaScript JSX     |         42 |      3,775 |         49 |        403 |      4,227 |
+| XML                |         10 |         40 |          0 |          0 |         40 |
+| JavaScript         |          3 |         38 |          1 |          9 |         48 |
+| PostCSS            |          1 |         33 |          2 |          6 |         41 |
+| Markdown           |          1 |         23 |          0 |         14 |         37 |
+| JSON with Comments |          1 |          7 |          0 |          1 |          8 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++--------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                       | files      | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                          |         60 |     11,117 |         52 |        435 |     11,604 |
+| . (Files)                                                                                  |          7 |      7,269 |          1 |         26 |      7,296 |
+| .idea                                                                                      |          5 |         35 |          0 |          0 |         35 |
+| .idea (Files)                                                                              |          4 |         29 |          0 |          0 |         29 |
+| .idea\inspectionProfiles                                                                   |          1 |          6 |          0 |          0 |          6 |
+| app                                                                                        |         16 |      1,561 |         24 |        183 |      1,768 |
+| app (Files)                                                                                |          3 |        204 |          5 |         21 |        230 |
+| app\api                                                                                    |          3 |        182 |          1 |         39 |        222 |
+| app\api\order                                                                              |          1 |         42 |          1 |          9 |         52 |
+| app\api\products                                                                           |          2 |        140 |          0 |         30 |        170 |
+| app\api\products (Files)                                                                   |          1 |         68 |          0 |         16 |         84 |
+| app\api\products\[id]                                                                      |          1 |         72 |          0 |         14 |         86 |
+| app\products                                                                               |          8 |        974 |         18 |        113 |      1,105 |
+| app\products (Files)                                                                       |          5 |        323 |          6 |         43 |        372 |
+| app\products\[id]                                                                          |          2 |        335 |          6 |         37 |        378 |
+| app\products\add                                                                           |          1 |        316 |          6 |         33 |        355 |
+| app\sale                                                                                   |          2 |        201 |          0 |         10 |        211 |
+| app\sale (Files)                                                                           |          1 |        155 |          0 |          6 |        161 |
+| app\sale\history                                                                           |          1 |         46 |          0 |          4 |         50 |
+| components                                                                                 |         17 |      1,290 |         26 |        178 |      1,494 |
+| components (Files)                                                                         |          6 |        365 |          7 |         56 |        428 |
+| components\charts                                                                          |          4 |        238 |          6 |         38 |        282 |
+| components\fomrs                                                                           |          2 |        394 |          4 |         50 |        448 |
+| components\product                                                                         |          3 |        261 |          8 |         25 |        294 |
+| components\ui                                                                              |          2 |         32 |          1 |          9 |         42 |
+| public                                                                                     |          5 |          5 |          0 |          0 |          5 |
+| utils                                                                                      |         10 |        957 |          1 |         48 |      1,006 |
++--------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++--------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                   | language           | code       | comment    | blank      | total      |
++--------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\Digiyol.com\Desktop\fallah-project\.idea\fallah-project.iml                       | XML                |          8 |          0 |          0 |          8 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\.idea\inspectionProfiles\profiles_settings.xml | XML                |          6 |          0 |          0 |          6 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\.idea\misc.xml                                 | XML                |          7 |          0 |          0 |          7 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\.idea\modules.xml                              | XML                |          8 |          0 |          0 |          8 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\.idea\vcs.xml                                  | XML                |          6 |          0 |          0 |          6 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\README.md                                      | Markdown           |         23 |          0 |         14 |         37 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\api\order\route.js                         | JavaScript JSX     |         42 |          1 |          9 |         52 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\api\products\[id]\route.js                 | JavaScript JSX     |         72 |          0 |         14 |         86 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\api\products\route.js                      | JavaScript JSX     |         68 |          0 |         16 |         84 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\globals.css                                | PostCSS            |         33 |          2 |          6 |         41 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\layout.js                                  | JavaScript JSX     |         35 |          1 |          4 |         40 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\page.js                                    | JavaScript JSX     |        136 |          2 |         11 |        149 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\products\ProductPageHeader.jsx             | JavaScript JSX     |        100 |          0 |          3 |        103 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\products\ProductPageSeach.jsx              | JavaScript JSX     |         80 |          2 |          8 |         90 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\products\ProductsClient.jsx                | JavaScript JSX     |         67 |          0 |         20 |         87 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\products\ProductsSkeleton.jsx              | JavaScript JSX     |         14 |          0 |          2 |         16 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\products\[id]\UpdateForm.jsx               | JavaScript JSX     |        312 |          6 |         31 |        349 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\products\[id]\page.jsx                     | JavaScript JSX     |         23 |          0 |          6 |         29 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\products\add\page.jsx                      | JavaScript JSX     |        316 |          6 |         33 |        355 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\products\page.jsx                          | JavaScript JSX     |         62 |          4 |         10 |         76 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\sale\history\page.jsx                      | JavaScript JSX     |         46 |          0 |          4 |         50 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\app\sale\page.jsx                              | JavaScript JSX     |        155 |          0 |          6 |        161 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\BackWhereCome.jsx                   | JavaScript JSX     |         26 |          0 |          7 |         33 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\FileUpload.jsx                      | JavaScript JSX     |         20 |          0 |          8 |         28 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\Navbar.jsx                          | JavaScript JSX     |         32 |          0 |          7 |         39 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\PageLayout.jsx                      | JavaScript JSX     |          9 |          0 |          2 |         11 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\ThemeContext.jsx                    | JavaScript JSX     |         37 |          0 |          9 |         46 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\UploadImage.jsx                     | JavaScript JSX     |        241 |          7 |         23 |        271 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\charts\AreaChart.jsx                | JavaScript JSX     |         66 |          5 |         15 |         86 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\charts\AreaChartComponent.jsx       | JavaScript JSX     |         78 |          1 |         13 |         92 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\charts\BarChart.jsx                 | JavaScript JSX     |         73 |          0 |          5 |         78 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\charts\ChartFiterComponent.jsx      | JavaScript JSX     |         21 |          0 |          5 |         26 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\fomrs\CustomerForm.jsx              | JavaScript JSX     |         55 |          3 |         13 |         71 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\fomrs\SaleForm.jsx                  | JavaScript JSX     |        339 |          1 |         37 |        377 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\product\Product.jsx                 | JavaScript JSX     |        146 |          3 |         11 |        160 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\product\ProductsFilteringView.jsx   | JavaScript JSX     |         67 |          4 |          8 |         79 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\product\SelectProduct.jsx           | JavaScript JSX     |         48 |          1 |          6 |         55 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\ui\LoadingSection.jsx               | JavaScript JSX     |         13 |          0 |          4 |         17 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\components\ui\scrollbar.js                     | JavaScript JSX     |         19 |          1 |          5 |         25 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\eslint.config.mjs                              | JavaScript         |         21 |          0 |          5 |         26 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\jsconfig.json                                  | JSON with Comments |          7 |          0 |          1 |          8 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\next.config.mjs                                | JavaScript         |         13 |          1 |          2 |         16 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\package-lock.json                              | JSON               |      7,171 |          0 |          1 |      7,172 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\package.json                                   | JSON               |         30 |          0 |          1 |         31 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\postcss.config.mjs                             | JavaScript         |          4 |          0 |          2 |          6 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\public\file.svg                                | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\public\globe.svg                               | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\public\next.svg                                | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\public\vercel.svg                              | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\public\window.svg                              | XML                |          1 |          0 |          0 |          1 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\utils\areaChartData.js                         | JavaScript JSX     |         83 |          0 |          4 |         87 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\utils\fetchOrders.js                           | JavaScript JSX     |         18 |          0 |          5 |         23 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\utils\fetchProducts.js                         | JavaScript JSX     |         20 |          1 |          7 |         28 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\utils\fetchProductsPage.js                     | JavaScript JSX     |         16 |          0 |          5 |         21 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\utils\locations.js                             | JavaScript JSX     |        398 |          0 |          1 |        399 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\utils\mokaProducts.js                          | JavaScript JSX     |        170 |          0 |          1 |        171 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\utils\mokaSaleHistory.js                       | JavaScript JSX     |        102 |          0 |          1 |        103 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\utils\productDetail.js                         | JavaScript JSX     |         66 |          0 |          5 |         71 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\utils\rugsLink.js                              | JavaScript JSX     |         18 |          0 |          1 |         19 |
+| c:\Users\Digiyol.com\Desktop\fallah-project\utils\validators.js                            | JavaScript JSX     |         66 |          0 |         18 |         84 |
+| Total                                                                                      |                    |     11,117 |         52 |        435 |     11,604 |
++--------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

@@ -16,10 +16,11 @@ import Link from "next/link";
 import React from "react";
 
 const SalePage = async () => {
-    const options = await fetch(
-        "https://68beb2079c70953d96ed415e.mockapi.io/products"
+    const historyData = await fetch(
+        `${process.env.BACKEND_API_URL}api/orders/`
     ).then((res) => res.json());
 
+    console.log(historyData);
     return (
         <PageLayout>
             <Box className="w-full grid grid-cols-1 md:grid-cols-2 items-center justify-between gap-4">
@@ -89,7 +90,7 @@ const SalePage = async () => {
                         </Box>
                     </Box>
 
-                    <SaleForm options={options} />
+                    <SaleForm />
                 </Card>
                 <Card className="rounded-lg! p-4 overflow-y-scroll! h-200 ">
                     <Box className="w-full flex items-center justify-between ">
@@ -119,33 +120,32 @@ const SalePage = async () => {
                     </Box>
 
                     <Box className="flex-col flex gap-2 ">
-                        {productsData.map((product) => (
+                        {historyData?.results.map((history) => (
                             <Box
-                                key={product.id}
+                                key={history.id}
                                 className="w-full rounded-xl! border border-gray-200 py-4 px-6 flex items-center justify-between"
                             >
                                 <Box className="flex items-center gap-2">
-                                    <Avatar src="https://mui.com/static/images/avatar/1.jpg">
-                                        P
-                                    </Avatar>
                                     <span>
                                         <Typography variant="subtitle1">
-                                            {product.name}
+                                            {history.customer_name}
                                         </Typography>
                                         <Typography
                                             variant="subtitle2"
                                             fontSize={12}
                                             color="info"
                                         >
-                                            {product.id}
+                                            {history.id}
                                         </Typography>
                                     </span>
                                 </Box>
                                 <Typography variant="subtitle1">
-                                    {product.date}
+                                    {history.order_date}
                                 </Typography>
                                 <Typography variant="subtitle1">
-                                    {product.price.toLocaleString("fa-IR")}{" "}
+                                    {Number.parseInt(
+                                        Number(history.total_price)
+                                    ).toLocaleString("fa-IR")}{" "}
                                     تومان
                                 </Typography>
                             </Box>

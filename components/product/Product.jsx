@@ -51,7 +51,7 @@ const Product = ({ product }) => {
 
             // Optional: update state to remove the deleted product from the UI
             console.log("Product deleted successfully");
-            redirect("/products")
+            // redirect("/products")
             // e.g., setProducts(prev => prev.filter(p => p.id !== id));
         } catch (error) {
             console.error("DELETE ERROR:", error);

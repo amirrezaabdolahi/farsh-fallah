@@ -10,6 +10,7 @@ import {
 } from "@mui/material"
 
 import {
+    allBraches,
     boardCategories,
     carpetCategories,
 } from "@/utils/productDetail"
@@ -22,7 +23,7 @@ const ProductsFilteringView = ({ branch }) => {
     const categoryByType = useMemo(() => {
         if (alignment === "carpet") return carpetCategories
         if (alignment === "tableau") return boardCategories
-        return [...carpetCategories, ...boardCategories]
+        return allBraches
     }, [alignment])
 
     return (

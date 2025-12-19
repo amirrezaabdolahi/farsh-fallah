@@ -18,6 +18,7 @@ export const fetchProducts = async ({ branch, type, search, page = 1 }) => {
         if (!res.ok) throw new Error("Fetch failed");
 
         const data = await res.json();
+        console.log(data)
         return data;
     } catch (error) {
         console.error("Error fetching products:", error);

@@ -66,12 +66,10 @@ export const validateProductForm = (formData) => {
     };
 };
 
-export const validateSaleForm = (form) => {
+export const validateSaleForm = (form, items) => {
     const errors = {};
 
-    if (!form.product) errors.product = "محصول الزامی است";
-    if (!form.quantity || form.quantity < 1)
-        errors.quantity = "تعداد معتبر نیست";
+    if (!items) errors.product = "محصول الزامی است";
 
     if (!/^09\d{9}$/.test(form.phone)) errors.phone = "شماره تلفن نامعتبر است";
 
