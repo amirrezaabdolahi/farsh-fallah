@@ -1,8 +1,6 @@
 export const fetchOrders = async ({ id}) => {
     try {
-        const params = new URLSearchParams();
-
-        const res = await fetch(`/api/products/${id ? id : ''}`, {
+        const res = await fetch(`/api/order/${id ? id : ''}`, {
             cache: "no-store",
         });
 

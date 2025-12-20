@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server";
 
-export async function GET(params) {}
+export async function GET(params) {
+    
+}
 
 export async function POST(request) {
     try {
