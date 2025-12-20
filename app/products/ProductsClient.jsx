@@ -5,16 +5,17 @@ import Product from "@/components/product/Product";
 import ProductsSkeleton from "./ProductsSkeleton";
 import { fetchProducts } from "@/utils/fetchProducts";
 import { Card, Typography } from "@mui/material";
+import { toast } from "react-toastify";
 
 const ProductsClient = ({ searchParams }) => {
     const [products, setProducts] = useState([]);
     const [page, setPage] = useState(1);
-    const [isMore, setIsMore] = useState(true);
+    const [isMore, setIsMore] = useState(false);
     const [loading, setLoading] = useState(false);
 
     const loaderRef = useRef(null);
 
-    const { branch, type , search } = searchParams;
+    const { branch, type, search } = searchParams;
 
     const fetchPage = async (pageNumber) => {
         if (loading) return;
@@ -26,6 +27,10 @@ const ProductsClient = ({ searchParams }) => {
             search,
             page: pageNumber,
         });
+
+        if (data.error) {
+            toast.error("خطا در بارگذاری محصولات");
+        }
 
         setProducts((prev) =>
             pageNumber === 1 ? data.results : [...prev, ...data.results]
@@ -65,15 +70,21 @@ const ProductsClient = ({ searchParams }) => {
 
     if (isInitialLoading) return <ProductsSkeleton />;
 
+    const handleDelete = (deletedId) => {
+        setProducts(products.filter((p) => p.id !== deletedId));
+    };
+
     return (
         <>
-            {
-                products.length === 0 && (<Card ><Typography className="h5">
-                    not found
-                </Typography></Card>)
-            }
+            {products.length === 0 && (
+                <Card>
+                    <Typography variant="body1" className="text-center py-3">
+                        محصولی یافت نشد
+                    </Typography>
+                </Card>
+            )}
             {products.map((p) => (
-                <Product key={p.id} product={p} />
+                <Product key={p.id} product={p} onDelete={handleDelete} />
             ))}
 
             {loading && <ProductsSkeleton />}

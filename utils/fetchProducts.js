@@ -1,11 +1,11 @@
-// utils/fetchProducts.js
 export const fetchProducts = async ({ branch, type, search, page = 1 }) => {
     try {
         const params = new URLSearchParams();
 
         if (branch && branch !== "all") params.append("branch", branch);
         if (type && type !== "all") params.append("type", type);
-        if (search?.trim()) params.append("search", search.trim());
+        if (typeof search === "string" && search.trim())
+            params.append("search", search.trim());
 
         params.append("page", page);
 
@@ -13,15 +13,29 @@ export const fetchProducts = async ({ branch, type, search, page = 1 }) => {
             cache: "no-store",
         });
 
-        console.log("this is res in fetch : ", res);
-
-        if (!res.ok) throw new Error("Fetch failed");
+        if (!res.ok) {
+            const errorData = await res.json().catch(() => null);
+            // Return error info instead of throwing
+            return {
+                results: [],
+                count: 0,
+                next: null,
+                previous: null,
+                error:
+                    errorData?.message || `HTTP error! status: ${res.status}`,
+            };
+        }
 
         const data = await res.json();
-        console.log(data)
         return data;
     } catch (error) {
-        console.error("Error fetching products:", error);
-        return { results: [], count: 0, next: null, previous: null };
+        return {
+            results: [],
+            count: 0,
+            next: null,
+            previous: null,
+            error:
+                error.message || "Something went wrong while fetching products",
+        };
     }
 };

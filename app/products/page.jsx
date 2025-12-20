@@ -18,14 +18,17 @@ import ProductsClient from "./ProductsClient";
 import ProductPageHeader from "./ProductPageHeader";
 import ProductPageSeach from "./ProductPageSeach";
 
-const Products = ({ searchParams }) => {
+const Products = async ({ searchParams }) => {
     const branch = searchParams?.branch || "all";
     const type = searchParams?.type || "all";
-    const search = searchParams?.search?.trim() || ''
+    const search = searchParams?.search?.trim() || "";
+
+    const data = await fetch(
+        `${process.env.BACKEND_API_URL}api/reports/top_products/`
+    ).then((res) => res.json());
 
     return (
         <PageLayout>
-            
             {/* page header */}
             <ProductPageHeader />
 
@@ -43,28 +46,30 @@ const Products = ({ searchParams }) => {
                 sx={horizontalScrollSx}
             >
                 <Card className="w-200 lg:w-full rounded-lg! sticky top-0 bg-transparent! backdrop-blur-sm z-50 shadow-lg border border-gray-200 py-4 px-6 grid grid-cols-6 items-center justify-between">
-                    <Typography variant="subtitle1" fontWeight={"bold"}>
+                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
                         محصولات
                     </Typography>
-                    <Typography variant="subtitle1" fontWeight={"bold"}>
+                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
                         تاریخ
                     </Typography>
-                    <Typography variant="subtitle1" fontWeight={"bold"}>
+                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
                         دسته‌بندی
                     </Typography>
-                    <Typography variant="subtitle1" fontWeight={"bold"}>
+                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
                         فروش ها
                     </Typography>
-                    <Typography variant="subtitle1" fontWeight={"bold"}>
+                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
                         قیمت
                     </Typography>
-                    <Typography variant="subtitle1" fontWeight={"bold"}>
+                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
                         اقدامات
                     </Typography>
                 </Card>
                 <Box className=" w-200 lg:w-full flex flex-col gap-2 mt-2">
                     <Suspense fallback={<ProductsSkeleton />}>
-                        <ProductsClient searchParams={{ branch, type , search  }} />
+                        <ProductsClient
+                            searchParams={{ branch, type, search }}
+                        />
                     </Suspense>
                 </Box>
             </Box>

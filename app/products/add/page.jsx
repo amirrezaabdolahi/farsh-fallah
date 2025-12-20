@@ -19,6 +19,7 @@ import {
 } from "@/utils/productDetail";
 import PageLayout from "@/components/PageLayout";
 import BackWhereCome from "@/components/BackWhereCome";
+import { toast } from "react-toastify";
 
 const FALLBACK_IMAGE =
     "https://cdn.shopify.com/s/files/1/0309/9262/9899/files/celestine-soft-blue-v2-A-RC-NU010-69.jpg?v=1742921945&width=640";
@@ -28,20 +29,20 @@ const EditForm = ({ handleUpdate }) => {
     const [errors, setErrors] = useState({});
     const [preview, setPreview] = useState(null);
 
-        const [formData, setFormData] = useState({
-            name: "",
-            image: null,
-            description: "",
-            type: null,
-            crop_sex: null,
-            branch: null,
-            unit_price: "",
-            sale_price: "",
-            serial_number: "",
-            size: "",
-            width: "",
-            length: "",
-        });
+    const [formData, setFormData] = useState({
+        name: "",
+        image: null,
+        description: "",
+        type: null,
+        crop_sex: null,
+        branch: null,
+        unit_price: "",
+        sale_price: "",
+        serial_number: "",
+        size: "",
+        width: "",
+        length: "",
+    });
 
     // جلوگیری از memory leak
     useEffect(() => {
@@ -114,17 +115,31 @@ const EditForm = ({ handleUpdate }) => {
             });
 
             if (!res.ok) {
-                throw new Error("Update failed");
+                toast.error("خطا در ذخیره محصول");
+                return;
             }
 
-            for (const [key, value] of payload.entries()) {
-                console.log(key, value);
-            }
+            toast.success("محصول با موفقیت ذخیره شد");
 
-            // TODO: toast / redirect / refresh
-            console.log("Product updated successfully");
+            setFormData({
+                name: "",
+                image: null,
+                description: "",
+                type: null,
+                crop_sex: null,
+                branch: null,
+                unit_price: "",
+                sale_price: "",
+                serial_number: "",
+                size: "",
+                width: "",
+                length: "",
+            });
+
+            setPreview(null)
+
         } catch (err) {
-            console.error(err);
+            toast.error("خطا در ذخیره محصول");
         } finally {
             setLoading(false);
         }

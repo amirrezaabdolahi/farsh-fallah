@@ -1,24 +1,22 @@
 "use client";
+
 import {
     DeleteRounded,
     EditRounded,
-    RemoveRedEyeRounded,
     ReportProblemRounded,
 } from "@mui/icons-material";
 import {
-    Avatar,
     Box,
     Button,
     Card,
-    Checkbox,
     IconButton,
     Modal,
     Typography,
 } from "@mui/material";
-import { redirect } from "next/dist/server/api-utils";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
+import { toast } from "react-toastify";
 
 const style = {
     position: "absolute",
@@ -31,31 +29,36 @@ const style = {
     textAlign: "center",
 };
 
-const Product = ({ product }) => {
+const Product = ({ product, onDelete }) => {
     const [open, setOpen] = React.useState(false);
+    const [loading, setLoading] = React.useState(false);
+
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
     const handleDelete = async (id) => {
-        if (!id) return;
+        if (!id || loading) return;
+        setLoading(true);
 
         try {
-            const res = await fetch(`/api/products/${id}`, {
-                method: "DELETE",
-            });
+            const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
 
             if (!res.ok) {
                 const error = await res.json().catch(() => null);
-                throw new Error(error?.message || "حذف محصول ناموفق بود");
+                toast.error(error?.message || "حذف محصول ناموفق بود");
+                return;
             }
 
-            // Optional: update state to remove the deleted product from the UI
-            console.log("Product deleted successfully");
-            // redirect("/products")
-            // e.g., setProducts(prev => prev.filter(p => p.id !== id));
+            toast.success("محصول با موفقیت حذف شد");
+
+            // Remove product from UI immediately
+            onDelete?.(id);
+
         } catch (error) {
-            console.error("DELETE ERROR:", error);
-            alert(error.message); // or use a toast
+            toast.error(error.message || "حذف محصول ناموفق بود");
+        } finally {
+            setLoading(false);
+            handleClose();
         }
     };
 
@@ -64,9 +67,9 @@ const Product = ({ product }) => {
             <Card
                 elevation={3}
                 key={product.id}
-                className="w-full rounded-xl! border border-gray-200 py-4 px-6 flex items-center justify-between"
+                className="w-full rounded-xl! border border-gray-200 py-4 px-6 grid grid-cols-6 items-center justify-between"
             >
-                <Box className="flex items-center gap-2">
+                <Box className="flex items-center gap-2 grid-cols-1">
                     <Box
                         className="w-13 h-13 rounded-full overflow-hidden flex items-center justify-center"
                         bgcolor="lightgray"
@@ -88,31 +91,27 @@ const Product = ({ product }) => {
                     </Box>
 
                     <span>
-                        <Typography variant="subtitle1">
-                            {product.name}
-                        </Typography>
-                        <Typography
-                            variant="subtitle2"
-                            fontSize={12}
-                            color="info"
-                        >
+                        <Typography variant="subtitle1">{product.name}</Typography>
+                        <Typography variant="subtitle2" fontSize={12} color="info">
                             {product.id}
                         </Typography>
                     </span>
                 </Box>
-                <Typography variant="subtitle1">
+
+                <Typography variant="subtitle1 text-center grid-cols-1">
                     {product.created_at.split(" - ")[0]}
                 </Typography>
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1 text-center grid-cols-1">
                     {product.branch_display}
                 </Typography>
-                <Typography variant="subtitle1" dir="ltr">
+                <Typography variant="subtitle1 text-center grid-cols-1" dir="ltr">
                     {product.size}
                 </Typography>
-                <Typography variant="subtitle1">
+                <Typography variant="subtitle1 text-center grid-cols-1">
                     {Number(product.sale_price).toLocaleString("fa-IR")} تومان
                 </Typography>
-                <Box className="flex items-center">
+
+                <Box className="flex items-center justify-center grid-cols-1">
                     <Link href={`products/${product.id}`} className="p-0 m-0">
                         <IconButton color="primary">
                             <EditRounded />
@@ -131,20 +130,18 @@ const Product = ({ product }) => {
                 aria-describedby="modal-modal-description"
             >
                 <Card sx={style} className="rounded-xl!">
-                    <ReportProblemRounded
-                        color="warning"
-                        sx={{ fontSize: 60 }}
-                    />
+                    <ReportProblemRounded color="warning" sx={{ fontSize: 60 }} />
                     <Typography variant="body1" className="my-5!">
                         آیا مطمعنی از حذف کردن محصول؟
                     </Typography>
-                    <Box className="text-start flex gap-2">
+                    <Box className="text-start flex gap-2 justify-center">
                         <Button
                             variant="contained"
                             color="error"
-                            onClick={(e) => handleDelete(product.id)}
+                            onClick={() => handleDelete(product.id)}
+                            disabled={loading}
                         >
-                            حذف
+                            {loading ? "در حال حذف..." : "حذف"}
                         </Button>
                         <Button variant="outlined" onClick={handleClose}>
                             انصراف

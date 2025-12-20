@@ -1,6 +1,5 @@
 import AreaChartComponent from "@/components/charts/AreaChartComponent";
 import BarChartView from "@/components/charts/BarChart";
-import ChartFiterComponent from "@/components/charts/ChartFiterComponent";
 import PageLayout from "@/components/PageLayout";
 import {
     AddCardRounded,
@@ -13,136 +12,123 @@ import {
     Card,
     Divider,
     IconButton,
-    TextField,
     Typography,
 } from "@mui/material";
 
+async function fetchJson(url) {
+    const res = await fetch(url, { cache: "no-store" });
+
+    if (!res.ok) {
+        throw new Error("Failed to fetch dashboard data");
+    }
+
+    return res.json();
+}
+
 export default async function Home() {
-    const dashBoardData = await fetch(
-        `${process.env.BACKEND_API_URL}api/reports/dashboard/`
-    ).then((res) => res.json());
-
-    const BarChartData = await fetch(
-        `${process.env.BACKEND_API_URL}api/reports/customers_by_region/`
-    ).then((res) => res.json());
-
-    const AreaChartData = await fetch(`${process.env.BACKEND_API_URL}api/reports/chart_sales/`).then(res => res.json())
-
-    console.log(AreaChartData);
+    const [dashBoardData, barChartData, areaChartData] = await Promise.all([
+        fetchJson(`${process.env.BACKEND_API_URL}api/reports/dashboard/`),
+        fetchJson(
+            `${process.env.BACKEND_API_URL}api/reports/customers_by_region/`
+        ),
+        fetchJson(`${process.env.BACKEND_API_URL}api/reports/chart_sales/`),
+    ]);
 
     const cards = [
         {
             id: 1,
             title: "درآمد ماه",
-            value: `${Number(dashBoardData?.month_profit).toLocaleString()}ت`,
-            icon: <AttachMoneyRounded fontSize="inherit" color="inherit" />,
+            value: `${Number(dashBoardData?.month_profit).toLocaleString(
+                "fa-IR"
+            )} ت`,
+            icon: <AttachMoneyRounded />,
         },
         {
             id: 2,
             title: "درآمد روز",
-            value: `${Number(dashBoardData?.today_profit).toLocaleString()}ت`,
-            icon: <CalendarMonthRounded fontSize="inherit" color="inherit" />,
+            value: `${Number(dashBoardData?.today_profit).toLocaleString(
+                "fa-IR"
+            )} ت`,
+            icon: <CalendarMonthRounded />,
         },
         {
             id: 3,
             title: "تعداد فروش روز",
-            value: `${dashBoardData?.today_orders}`,
-            icon: <AddCardRounded fontSize="inherit" color="inherit" />,
+            value: dashBoardData?.today_orders ?? 0,
+            icon: <AddCardRounded />,
         },
         {
             id: 4,
             title: "تعداد فروش ماه",
-            value: `${dashBoardData?.month_sales}`,
-            icon: <AddCardRounded fontSize="inherit" color="inherit" />,
+            value: dashBoardData?.month_sales ?? 0,
+            icon: <AddCardRounded />,
         },
     ];
 
     return (
         <PageLayout>
-            <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 items-center justify-between py-2 gap-2 lg:gap-4 ">
+            {/* summary cards */}
+            <Box className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 py-2">
                 {cards.map((card) => (
                     <Card
                         key={card.id}
-                        className="w-full p-4 bg-white rounded-lg shadow-md relative flex items-center justify-between"
+                        className="p-4 flex items-center justify-between relative"
                     >
-                        <div
-                            className={`absolute w-1 right-0 top-0 bottom-0 bg-blue-400 ${
-                                card.id === 1 ? "block" : "hidden"
-                            }`}
-                        ></div>
-                        <div className="">
-                            <Typography
-                                variant="h6"
-                                className="mb-2 "
-                            >
+                        {card.id === 1 && (
+                            <span className="absolute right-0 top-0 bottom-0 w-1 bg-blue-400" />
+                        )}
+
+                        <Box>
+                            <Typography variant="body1" mb={1}>
                                 {card.title}
                             </Typography>
                             <Typography
                                 variant="h6"
-                                className="font-bold!"
+                                fontWeight="bold"
                                 color="primary.dark"
                             >
                                 {card.value}
                             </Typography>
-                        </div>
-                        <IconButton
-                            size=""
-                            className="bg-blue-100 text-blue-500!"
-                        >
+                        </Box>
+
+                        <IconButton className="bg-blue-100 text-blue-500!">
                             {card.icon}
                         </IconButton>
                     </Card>
                 ))}
             </Box>
 
-            {/* bar chart and add product boxs */}
-            <Box className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-6 gap-4 h-150 lg:h-100 mt-4">
-                <Box className="flex flex-col gap-4 ">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className="h-full w-full"
-                    >
+            {/* actions + bar chart */}
+            <Box className="grid grid-cols-2 lg:grid-cols-6 gap-4 mt-4 h-150 lg:h-100">
+                <Box className="flex flex-col gap-4 h-full">
+                    <Button variant="contained" className="h-full" fullWidth>
                         اضافه کردن فرش
                     </Button>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        className="h-full w-full"
-                    >
-                        مشاهده فرش ها
+                    <Button variant="outlined" className="h-full" fullWidth>
+                        مشاهده فرش‌ها
                     </Button>
                 </Box>
 
                 <Box className="flex flex-col gap-4">
-                    <Button
-                        variant="contained"
-                        color="primary"
-                        className="h-full w-full"
-                    >
+                    <Button variant="contained" className="h-full" fullWidth>
                         اضافه کردن تابلو
                     </Button>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        className="h-full w-full"
-                    >
-                        مشاهده تابلو ها
+                    <Button variant="outlined" className="h-full" fullWidth>
+                        مشاهده تابلوها
                     </Button>
                 </Box>
 
-                <Box
-                    className="col-span-full lg:col-span-4 shadow-lg border border-gray-100 rounded-lg p-6 "
+                <Card
+                    className="col-span-full lg:col-span-4 rounded-lg! p-4"
                     dir="ltr"
                 >
-                    <BarChartView data={BarChartData.regions} />
-                </Box>
+                    <BarChartView data={barChartData?.regions ?? []} />
+                </Card>
             </Box>
 
             {/* area chart */}
-            <Box></Box>
-            <Divider className="my-4!" />
-            <AreaChartComponent data={AreaChartData} />
+            <Divider sx={{ my: 4 }} />
+            <AreaChartComponent data={areaChartData ?? []} />
         </PageLayout>
     );
 }

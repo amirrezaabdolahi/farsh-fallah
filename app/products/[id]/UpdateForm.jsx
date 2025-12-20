@@ -16,9 +16,7 @@ import {
     materials,
     productTypes,
 } from "@/utils/productDetail";
-
-const FALLBACK_IMAGE =
-    "https://cdn.shopify.com/s/files/1/0309/9262/9899/files/celestine-soft-blue-v2-A-RC-NU010-69.jpg?v=1742921945&width=640";
+import { toast } from "react-toastify";
 
 const EditForm = ({ product }) => {
     const [loading, setLoading] = useState(false);
@@ -111,17 +109,13 @@ const EditForm = ({ product }) => {
 
             if (!res.ok) {
                 const data = await res.json().catch(() => null);
-                throw new Error(data?.message || "خطا در بروزرسانی محصول");
+                toast.error("خطا در به‌روزرسانی محصول");
+                return;
             }
 
-            for (const [key, value] of payload.entries()) {
-                console.log(key, value);
-            }
-
-            // TODO: toast / redirect / refresh
-            console.log("Product updated successfully");
+            toast.success("محصول با موفقیت به‌روزرسانی شد");
         } catch (err) {
-            console.error(err);
+            toast.error("خطا در به‌روزرسانی محصول");
         } finally {
             setLoading(false);
         }
