@@ -1,20 +1,48 @@
-export const fetchOrders = async ({ id}) => {
+export const fetchOrders = async ({ page = 1 } = {}) => {
     try {
-        const res = await fetch(`/api/order/${id ? id : ''}`, {
+        const params = new URLSearchParams();
+
+        if (page > 1) {
+            params.append("page", page);
+        }
+
+        const query = params.toString();
+        const url = `/api/order${query ? `?${query}` : ""}`;
+
+        const res = await fetch(url, {
             cache: "no-store",
         });
 
-        console.log("this is res in fetch : ", res);
+        if (!res.ok) {
+            throw new Error("Failed to fetch orders");
+        }
+
+        return await res.json(); // { results, count, next, previous }
+    } catch (error) {
+        console.error("Error fetching orders:", error);
+
+        return {
+            results: [],
+            count: 0,
+            next: null,
+            previous: null,
+        };
+    }
+};
+
+export const fetchOrderDetail = async (id) => {
+    try {
+        const res = await fetch(`/api/order/${id}/`, {
+            cache: "no-store",
+        });
 
         if (!res.ok) {
-            console.log("api post falid")
-        };
+            throw new Error("Failed to fetch order detail");
+        }
 
-        const data = await res.json();
-        console.log(data)
-        return data;
+        return await res.json();
     } catch (error) {
-        console.error("Error fetching products:", error);
-        return { results: [], count: 0, next: null, previous: null };
+        console.error("Error fetching order detail:", error);
+        return null;
     }
 };

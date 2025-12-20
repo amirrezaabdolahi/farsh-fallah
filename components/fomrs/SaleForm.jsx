@@ -18,6 +18,7 @@ import { CloseRounded, CachedRounded } from "@mui/icons-material";
 import { locations } from "@/utils/locations";
 import { validateSaleForm } from "@/utils/validators";
 import Image from "next/image";
+import { toast } from "react-toastify";
 
 const areas = Array.from({ length: 22 }, (_, i) => i + 1);
 
@@ -72,6 +73,7 @@ const SaleForm = ({}) => {
         setForm((prev) => ({ ...prev, [key]: value }));
     };
 
+    console.log(items);
     const handleProvinceChange = (value) => {
         setForm((prev) => ({
             ...prev,
@@ -79,6 +81,13 @@ const SaleForm = ({}) => {
             city: "",
             area: "",
         }));
+    };
+    const updateDiscount = (productId, value) => {
+        setItems((prev) =>
+            prev.map((it) =>
+                it.product.id === productId ? { ...it, discount: value } : it
+            )
+        );
     };
 
     const selectedProvince = locations.find(
@@ -121,12 +130,26 @@ const SaleForm = ({}) => {
             });
 
             if (!res.ok) {
-                console.log("error when sending data");
+                toast.error("خطا در ارسال فرم");
+                return;
             }
 
-            const data = await res.json()
+            const data = await res.json();
 
-            console.log(data.success);
+            if (data.success) {
+                toast.success("فرم با موفقیت ارسال شد");
+                setForm({
+                    phone: "",
+                    name: "",
+                    province: "",
+                    city: "",
+                    area: "",
+                    address: "",
+                });
+                setItems([]);
+            }
+        } catch (e) {
+            toast.error("خطا در ارسال فرم");
         } finally {
             setLoading(false);
         }
@@ -149,7 +172,7 @@ const SaleForm = ({}) => {
                                 const existing = prev.find(
                                     (i) => i.product.id === p.id
                                 );
-                                return existing || { product: p, discount: 0 };
+                                return existing || { product: p, discount: "" };
                             })
                         );
                     }}
@@ -220,54 +243,88 @@ const SaleForm = ({}) => {
             <Box className="flex flex-col gap-2">
                 {items.length !== 0 ? (
                     <>
-                        {items.map((item) => (
-                            <Card
-                                key={item.product.id}
-                                className="p-2 border border-gray-200"
-                            >
-                                <Box className="flex items-center gap-2 mb-2">
-                                    <Box
-                                        className=" rounded-full overflow-hidden bg-gray-400 ml-2 flex items-center justify-center"
-                                        sx={{ width: 24, height: 24 }}
-                                    >
-                                        {item.product.image ? (
-                                            <Image
-                                                src={item.product?.image}
-                                                alt={item.product.name}
-                                                quality={50}
-                                                className="w-full object-cover"
-                                                width={50}
-                                                height={50}
-                                            />
-                                        ) : (
-                                            <Typography variant="body2">
-                                                {item.product?.name[0]}
-                                            </Typography>
-                                        )}
+                        {items.map((item) => {
+                            const maxDiscount = Number(item.product.sale_price);
+
+                            const isInvalid =
+                                item.discount !== "" &&
+                                (item.discount < 0 ||
+                                    item.discount > maxDiscount);
+
+                            return (
+                                <Card
+                                    key={item.product.id}
+                                    className="p-2 border border-gray-200"
+                                >
+                                    <Box className="flex items-center gap-2 mb-2">
+                                        <Box
+                                            className="rounded-full overflow-hidden bg-gray-400 ml-2 flex items-center justify-center"
+                                            sx={{ width: 24, height: 24 }}
+                                        >
+                                            {item.product.image ? (
+                                                <Image
+                                                    src={item.product.image}
+                                                    alt={item.product.name}
+                                                    width={30}
+                                                    height={30}
+                                                    className="object-cover"
+                                                />
+                                            ) : (
+                                                <Typography variant="body2">
+                                                    {item.product.name[0]}
+                                                </Typography>
+                                            )}
+                                        </Box>
+
+                                        <Typography>
+                                            {item.product.name}
+                                        </Typography>
                                     </Box>
-                                    <Typography variant="body1">
-                                        {item.product.name}
-                                    </Typography>
-                                </Box>
-                                <TextField
-                                    size="small"
-                                    label="تخفیف"
-                                    value={item.discount}
-                                    type="number"
-                                    onChange={(e) => {
-                                        const value = e.target.value;
-                                        setItems((prev) =>
-                                            prev.map((it, i) =>
-                                                it.product.id ===
-                                                item.product.id
-                                                    ? { ...it, discount: value }
-                                                    : it
+
+                                    <TextField
+                                        size="small"
+                                        label="تخفیف"
+                                        type="number"
+                                        value={item.discount}
+                                        error={isInvalid}
+                                        helperText={
+                                            isInvalid
+                                                ? `حداکثر تخفیف ${maxDiscount} است`
+                                                : ""
+                                        }
+                                        inputProps={{
+                                            min: 0,
+                                            max: maxDiscount,
+                                        }}
+                                        onChange={(e) => {
+                                            const raw = e.target.value;
+
+                                            if (raw === "") {
+                                                updateDiscount(
+                                                    item.product.id,
+                                                    ""
+                                                );
+                                                return;
+                                            }
+
+                                            const value = Number(raw);
+
+                                            if (
+                                                Number.isNaN(value) ||
+                                                value < 0 ||
+                                                value > maxDiscount
                                             )
-                                        );
-                                    }}
-                                />
-                            </Card>
-                        ))}
+                                                return;
+
+                                            updateDiscount(
+                                                item.product.id,
+                                                value
+                                            );
+                                        }}
+                                    />
+                                </Card>
+                            );
+                        })}
                     </>
                 ) : (
                     <Card className="rounded-lg! flex items-center justify-center py-2">

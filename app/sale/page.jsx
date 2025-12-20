@@ -17,7 +17,8 @@ import React from "react";
 
 const SalePage = async () => {
     const historyData = await fetch(
-        `${process.env.BACKEND_API_URL}api/orders/`
+        `${process.env.BACKEND_API_URL}api/orders/`,
+        {cache : 'no-store'}
     ).then((res) => res.json());
 
     console.log(historyData);

@@ -1,7 +1,52 @@
 import { NextResponse } from "next/server";
 
-export async function GET(params) {
-    
+export async function GET(req) {
+    try {
+        const { searchParams } = new URL(req.url);
+        const page = searchParams.get("page");
+
+        const params = new URLSearchParams();
+
+        if (page && Number(page) > 1) {
+            params.append("page", page);
+        }
+
+        const query = params.toString();
+        const url = `${process.env.BACKEND_API_URL}api/orders/${
+            query ? `?${query}` : ""
+        }`;
+
+        const res = await fetch(url, {
+            method: "GET",
+            headers: {
+                "Content-Type": "application/json",
+                // Authorization: `Token ${process.env.BACKEND_API_TOKEN}`,
+            },
+            cache: "no-store",
+        });
+
+        if (!res.ok) {
+            return NextResponse.json(
+                { success: false, message: "خطا در ارتباط با API بک‌اند" },
+                { status: res.status }
+            );
+        }
+
+        const data = await res.json();
+
+        // ⬅️ contract ثابت با frontend
+        return NextResponse.json(data, { status: 200 });
+    } catch (error) {
+        console.error("Orders API error:", error);
+
+        return NextResponse.json(
+            {
+                success: false,
+                message: "خطای داخلی سرور",
+            },
+            { status: 500 }
+        );
+    }
 }
 
 export async function POST(request) {

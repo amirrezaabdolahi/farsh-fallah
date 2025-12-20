@@ -1,6 +1,6 @@
 "use client";
 
-import { createContext, useContext, useState, useMemo } from "react";
+import { createContext, useContext, useState, useMemo, useEffect } from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { CacheProvider } from "@emotion/react";
 import createCache from "@emotion/cache";
@@ -27,6 +27,11 @@ export function ThemeContextProvider({ children }) {
                 fontFamily: "Vazirmatn, Arial, sans-serif",
             },
         });
+    }, [mode]);
+
+    useEffect(() => {
+        document.body.classList.remove("light", "dark");
+        document.body.classList.add(mode);
     }, [mode]);
 
     const toggleMode = () => {

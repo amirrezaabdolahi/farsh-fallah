@@ -12,13 +12,19 @@
   --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+
 /* Disable overscroll flash globally */
+
+body.light {
+  --color-background: #ffffff;
+  --color-foreground: #171717;
+}
+
+body.dark {
+  --color-background: #0a0a0a;
+  --color-foreground: #ededed;
+}
+
 html,
 body {
   overscroll-behavior: none;
@@ -29,7 +35,7 @@ body {
   -webkit-overflow-scrolling: touch;
 }
 body {
-  background-color: #f8f8f8;
+  background-color: var(--color-background); ;
   font-family: Vazirmatn, Arial, Helvetica, sans-serif;
 }
 
