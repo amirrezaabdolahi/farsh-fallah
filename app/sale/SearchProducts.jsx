@@ -1,37 +1,35 @@
 "use client";
 import { fetchProducts } from "@/utils/fetchProducts";
-import { Card, TextField, Typography } from "@mui/material";
+import { Box, Card, TextField, Typography } from "@mui/material";
 import React, { useState } from "react";
+import ProductCard from "./ProductCard";
 
-const SearchProducts = ({ setItems }) => {
+const SearchProducts = ({ setItems , items }) => {
     const [searchTerm, setSearchTerm] = useState("");
-    const [products, setProducts] = useState([]);
+    const [results, setResults] = useState([]);
 
     const handleSearch = async (e) => {
         const value = e.target.value;
         setSearchTerm(value);
 
-        if (!searchTerm) {
-            setProducts([]);
-            return;
-        }
+        console.log(value);
+        console.log(results);
 
-        if (!value.trim()) {
-            setProducts([]);
+        if (!value.trim() || value.trim().length < 2) {
+            setResults([]);
             return;
         }
 
         try {
-            const res = await fetchProducts({ search: searchTerm });
-            const data = await res;
-            setProducts(data.results);
+            const data = await fetchProducts({ search: value.trim() });
+            setResults(data.results ?? []);
         } catch (error) {
             console.error(error);
         }
     };
 
     return (
-        <Card className="p-4">
+        <Card className="p-4 rounded-lg!">
             <Typography variant="body1" gutterBottom>
                 جستجوی محصول
             </Typography>
@@ -39,16 +37,18 @@ const SearchProducts = ({ setItems }) => {
             <TextField
                 variant="outlined"
                 size="small"
-                label="جستجوی"
+                label="جستجو"
                 placeholder="کد یا نام محصول"
                 fullWidth
                 value={searchTerm}
                 onChange={handleSearch}
             />
 
-            {products.map((product) => (
-                <Typography key={product.id}>{product.name}</Typography>
-            ))}
+            <Box className="mt-4 h-100 overflow-y-auto">
+                {results.map((product) => (
+                    <ProductCard key={product.id} product={product} setItems={setItems} items={items} />
+                ))}
+            </Box>
         </Card>
     );
 };

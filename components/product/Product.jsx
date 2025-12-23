@@ -68,7 +68,7 @@ const Product = ({ product, onDelete }) => {
             <Card
                 elevation={3}
                 key={product.id}
-                className="w-full rounded-xl! border border-gray-200 py-4 px-6 grid grid-cols-6 items-center justify-between"
+                className="w-full rounded-xl!  border-none! py-4 px-6 grid grid-cols-6 items-center justify-between"
             >
                 <Box className="flex items-center gap-2 grid-cols-1">
                     <Box

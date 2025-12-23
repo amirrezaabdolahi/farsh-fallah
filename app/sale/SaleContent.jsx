@@ -37,7 +37,7 @@ const SaleContent = () => {
                 <SaleForm items={items} setItems={setItems} />
             </Card>
 
-            <SearchProducts setItems={setItems} />
+            <SearchProducts setItems={setItems} items={items} />
         </>
     );
 };

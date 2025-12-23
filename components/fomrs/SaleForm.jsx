@@ -262,7 +262,7 @@ const SaleForm = ({ items, setItems }) => {
                             return (
                                 <Card
                                     key={item.product.id}
-                                    className="p-2 border border-gray-200"
+                                    className="p-2 border-gray-200! border rounded-lg!"
                                 >
                                     <Box className="flex items-center gap-2 mb-2">
                                         <Box
