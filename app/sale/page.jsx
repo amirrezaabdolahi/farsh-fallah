@@ -14,11 +14,12 @@ import { Avatar, Button, Card, TextField, Typography } from "@mui/material";
 import { Box } from "@mui/system";
 import Link from "next/link";
 import React from "react";
+import SaleContent from "./SaleContent";
 
 const SalePage = async () => {
     const historyData = await fetch(
         `${process.env.BACKEND_API_URL}api/orders/`,
-        {cache : 'no-store'}
+        { cache: "no-store" }
     ).then((res) => res.json());
 
     console.log(historyData);
@@ -69,31 +70,10 @@ const SalePage = async () => {
                 </Card>
             </Box>
             <Box className="w-full grid grid-cols-1 lg:grid-cols-2 gap-4 mt-4">
-                <Card className="p-4 rounded-lg! h-max">
-                    <Box className="w-full justify-start flex gap-2">
-                        <AddRounded
-                            className="rounded-full"
-                            sx={{
-                                bgcolor: "primary.main",
-                                width: 50,
-                                height: 50,
-                                padding: 1,
-                                color: "white",
-                            }}
-                        />
-                        <Box className="flex-col flex items-start gap-0">
-                            <Typography variant="body1">
-                                اضافه کردن فروش جدید
-                            </Typography>
-                            <Typography variant="body2">
-                                تمام فیلد های زیر رو برای ایجاد یک فروش پر کنید
-                            </Typography>
-                        </Box>
-                    </Box>
+                {/* all of logics are here */}
+                <SaleContent />
 
-                    <SaleForm />
-                </Card>
-                <Card className="rounded-lg! p-4 overflow-y-scroll! h-200 ">
+                <Card className="rounded-lg! p-4 col-span-full overflow-y-scroll! h-200 ">
                     <Box className="w-full flex items-center justify-between ">
                         <Typography variant="subtitle1">
                             تاریخچه فروش

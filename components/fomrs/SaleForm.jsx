@@ -22,7 +22,7 @@ import { toast } from "react-toastify";
 
 const areas = Array.from({ length: 22 }, (_, i) => i + 1);
 
-const SaleForm = ({}) => {
+const SaleForm = ({ items, setItems }) => {
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
 
@@ -31,8 +31,6 @@ const SaleForm = ({}) => {
     const [hasMore, setHasMore] = useState(true);
     const [loadingProducts, setLoadingProducts] = useState(false);
 
-    const [items, setItems] = useState([]);
-
     const fetchProductsPage = async (pageNumber = 1) => {
         if (loadingProducts || !hasMore) return;
 
@@ -40,7 +38,10 @@ const SaleForm = ({}) => {
 
         try {
             const res = await fetch(`/api/products?page=${pageNumber}`);
-            if (!res.ok) throw new Error("fetch failed");
+            if (!res.ok) {
+                toast.error("خطا در دریافت محصولات");
+                return;
+            }
 
             const data = await res.json();
 
@@ -161,6 +162,13 @@ const SaleForm = ({}) => {
         <Box className="flex flex-col gap-3 mt-2">
             <Typography variant="subtitle1">محصول</Typography>
 
+            {/* <TextField
+                label="جستجوی محصول"
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                fullWidth
+                size="small"
+            /> */}
             <Box>
                 <Autocomplete
                     multiple

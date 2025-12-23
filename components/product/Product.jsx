@@ -41,7 +41,9 @@ const Product = ({ product, onDelete }) => {
         setLoading(true);
 
         try {
-            const res = await fetch(`/api/products/${id}`, { method: "DELETE" });
+            const res = await fetch(`/api/products/${id}`, {
+                method: "DELETE",
+            });
 
             if (!res.ok) {
                 const error = await res.json().catch(() => null);
@@ -53,7 +55,6 @@ const Product = ({ product, onDelete }) => {
 
             // Remove product from UI immediately
             onDelete?.(id);
-
         } catch (error) {
             toast.error(error.message || "حذف محصول ناموفق بود");
         } finally {
@@ -91,9 +92,17 @@ const Product = ({ product, onDelete }) => {
                     </Box>
 
                     <span>
-                        <Typography variant="subtitle1">{product.name}</Typography>
-                        <Typography variant="subtitle2" fontSize={12} color="info">
-                            {product.id}
+                        <Typography variant="subtitle1">
+                            {product.name}
+                        </Typography>
+                        <Typography
+                            variant="subtitle2"
+                            fontSize={12}
+                            color="info"
+                        >
+                            {product.serial_number
+                                ? product.serial_number
+                                : product.id}
                         </Typography>
                     </span>
                 </Box>
@@ -104,7 +113,10 @@ const Product = ({ product, onDelete }) => {
                 <Typography variant="subtitle1 text-center grid-cols-1">
                     {product.branch_display}
                 </Typography>
-                <Typography variant="subtitle1 text-center grid-cols-1" dir="ltr">
+                <Typography
+                    variant="subtitle1 text-center grid-cols-1"
+                    dir="ltr"
+                >
                     {product.size}
                 </Typography>
                 <Typography variant="subtitle1 text-center grid-cols-1">
@@ -130,7 +142,10 @@ const Product = ({ product, onDelete }) => {
                 aria-describedby="modal-modal-description"
             >
                 <Card sx={style} className="rounded-xl!">
-                    <ReportProblemRounded color="warning" sx={{ fontSize: 60 }} />
+                    <ReportProblemRounded
+                        color="warning"
+                        sx={{ fontSize: 60 }}
+                    />
                     <Typography variant="body1" className="my-5!">
                         آیا مطمعنی از حذف کردن محصول؟
                     </Typography>
