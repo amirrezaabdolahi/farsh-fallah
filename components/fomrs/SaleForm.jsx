@@ -31,6 +31,15 @@ const SaleForm = ({ items, setItems }) => {
     const [hasMore, setHasMore] = useState(true);
     const [loadingProducts, setLoadingProducts] = useState(false);
 
+    const [form, setForm] = useState({
+        phone: "",
+        name: "",
+        province: "",
+        city: "",
+        area: "",
+        address: "",
+    });
+
     const fetchProductsPage = async (pageNumber = 1) => {
         if (loadingProducts || !hasMore) return;
 
@@ -61,20 +70,10 @@ const SaleForm = ({ items, setItems }) => {
         fetchProductsPage(1);
     }, []);
 
-    const [form, setForm] = useState({
-        phone: "",
-        name: "",
-        province: "",
-        city: "",
-        area: "",
-        address: "",
-    });
-
     const setValue = (key, value) => {
         setForm((prev) => ({ ...prev, [key]: value }));
     };
 
-    console.log(items);
     const handleProvinceChange = (value) => {
         setForm((prev) => ({
             ...prev,
@@ -158,17 +157,22 @@ const SaleForm = ({ items, setItems }) => {
     useEffect(() => {
         console.log("products length:", products.length);
     }, [products]);
+
+    const handleClear = () => {
+        setForm({
+            phone: "",
+            name: "",
+            province: "",
+            city: "",
+            area: "",
+            address: "",
+        });
+        setItems([]);
+    };
+
     return (
         <Box className="flex flex-col gap-3 mt-2">
             <Typography variant="subtitle1">محصول</Typography>
-
-            {/* <TextField
-                label="جستجوی محصول"
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                fullWidth
-                size="small"
-            /> */}
             <Box>
                 <Autocomplete
                     multiple
@@ -430,7 +434,7 @@ const SaleForm = ({ items, setItems }) => {
                     {loading ? "در حال ذخیره..." : "ذخیره"}
                 </Button>
 
-                <Button variant="contained" color="error">
+                <Button variant="contained" color="error" onClick={handleClear}>
                     <CloseRounded />
                 </Button>
             </Box>

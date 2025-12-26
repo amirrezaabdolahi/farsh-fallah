@@ -9,6 +9,7 @@ import {
     LocalMallRounded,
     Logout,
     LogoutRounded,
+    SearchRounded,
     Settings,
     SettingsRounded,
     VerifiedUserRounded,
@@ -22,7 +23,7 @@ const links = [
     { id: 1, name: "داشبورد", url: "/", icon: <HomeRounded /> },
     { id: 2, name: "محصولات", url: "/products", icon: <LocalMallRounded /> },
     { id: 3, name: "فروش", url: "/sale", icon: <AttachMoneyRounded /> },
-    { id: 4, name: "سرچ ویژه", url: "/prosearch", icon: <SettingsRounded /> },
+    { id: 4, name: "سرچ", url: "/search", icon: <SearchRounded /> },
 ];
 
 const Navbar = () => {
