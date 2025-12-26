@@ -84,3 +84,20 @@ export const AreaChartData = {
     { month: "12", price: 214 }
   ]
 };
+
+export const monthlyData = [
+  { month: "Jan", revenue: 12000, profit: 4000 },
+  { month: "Feb", revenue: 15000, profit: 5000 },
+  { month: "Mar", revenue: 14000, profit: 4500 },
+  { month: "Apr", revenue: 17000, profit: 6000 },
+  { month: "May", revenue: 16000, profit: 5500 },
+  { month: "Jun", revenue: 18000, profit: 6500 },
+  { month: "Jul", revenue: 19000, profit: 7000 },
+  { month: "Aug", revenue: 20000, profit: 7500 },
+  { month: "Sep", revenue: 21000, profit: 8000 },
+  { month: "Oct", revenue: 22000, profit: 8500 },
+  { month: "Nov", revenue: 23000, profit: 9000 },
+  { month: "Dec", revenue: 24000, profit: 9500 },
+];
+
+
