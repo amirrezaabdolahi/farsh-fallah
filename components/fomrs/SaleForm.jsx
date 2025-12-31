@@ -107,8 +107,8 @@ const SaleForm = ({ items, setItems }) => {
             customer_name: form.name,
             customer_phone: form.phone,
             customer_city: form.city,
-            customer_state: form.area,
-            customer_region: form.province,
+            customer_state: form.province,
+            customer_region: form.area,
             customer_address: form.address,
             items: items.map((i) => ({
                 product: i.product.id,

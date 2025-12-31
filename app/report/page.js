@@ -9,7 +9,20 @@ import {
 } from "@mui/icons-material";
 import DouelAreaChart from "@/components/charts/DouelAreaChart";
 
-const ReportPage = async () => {
+const ReportPage = async ({ searchParams }) => {
+    const start = await searchParams?.start_date;
+    const end = await searchParams?.end_date;
+    const params = new URLSearchParams();
+
+    if (start && end) {
+        params.append("start_date", start);
+        params.append("end_date", end);
+    }
+
+    const reportDetail = await fetch(
+        `${process.env.BACKEND_API_URL}api/reports/chart_sales/?${params}`
+    ).then((res) => res.json());
+
     const topProductsData = await fetch(
         `${process.env.BACKEND_API_URL}api/reports/top_products/`,
         {
@@ -17,14 +30,12 @@ const ReportPage = async () => {
         }
     ).then((res) => res?.json());
 
-    console.log(topProductsData);
-
     return (
         <PageLayout>
             <Typography variant="h6" gutterBottom>
                 گزارش فروش با تاریخ
             </Typography>
-            <PersianDateRangePicker />
+            <PersianDateRangePicker start={start} end={end} />
             <Typography variant="body2" color="textSecondary" sx={{ mt: 2 }}>
                 لطفاً یک بازه زمانی را برای فیلتر کردن نتایج جستجو انتخاب کنید.
             </Typography>
@@ -91,7 +102,15 @@ const ReportPage = async () => {
                 </Typography>
 
                 <Box className="w-full" dir="ltr">
-                    <DouelAreaChart />
+                    <DouelAreaChart
+                        data={
+                            reportDetail?.data
+                                ? reportDetail?.data
+                                : reportDetail?.month
+                                ? reportDetail?.month.data
+                                : []
+                        }
+                    />
                 </Box>
             </Card>
             <Box className="w-full flex justify-between gap-4 mt-4 flex-col md:flex-row">
@@ -108,7 +127,7 @@ const ReportPage = async () => {
                             <>
                                 {topProductsData.map((product) => (
                                     <Card
-                                        key={product.id}
+                                        key={product.name}
                                         className="flex items-center justify-between mt-2 p-2"
                                     >
                                         <Typography variant="body2">

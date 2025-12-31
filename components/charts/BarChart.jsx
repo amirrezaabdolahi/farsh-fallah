@@ -14,6 +14,9 @@ import {
 import CustomeTooltip from "./CustomeToolTip";
 
 const BarChartView = ({ data }) => {
+
+    console.log(data)
+
     return (
         <ResponsiveContainer width="100%" height="100%">
             <BarChart style={{ aspectRatio: 1.618 }} responsive data={data}>

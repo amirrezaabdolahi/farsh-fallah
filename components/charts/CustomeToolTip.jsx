@@ -1,3 +1,5 @@
+import { Card, Typography } from "@mui/material";
+
 const CustomeTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {
         return (
