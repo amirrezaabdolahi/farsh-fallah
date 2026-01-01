@@ -79,8 +79,10 @@ const ProductPageSeach = () => {
                     </Button>
                 </Link>
             </Box>
-            <Link href={"settings"} className="block md:hidden">
-                <Button variant="contained">مشاهده پیشرفته</Button>
+            <Link href="products/add" className="block md:hidden">
+                <Button variant="contained" endIcon={<AddRounded />}>
+                    افزودن محصول
+                </Button>
             </Link>
         </Box>
     );

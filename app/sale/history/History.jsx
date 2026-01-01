@@ -17,6 +17,7 @@ import {
     CalendarMonthRounded,
     ArrowBackRounded,
     DeleteRounded,
+    SearchRounded,
 } from "@mui/icons-material";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -26,11 +27,12 @@ const History = () => {
     const [page, setPage] = useState(1);
     const [loading, setLoading] = useState(false);
     const [hasMore, setHasMore] = useState(true);
+    const [search, setSearch] = useState("");
 
-    const loadOrders = async (pageNumber = 1) => {
+    const loadOrders = async (pageNumber = 1, search) => {
         setLoading(true);
         try {
-            const data = await fetchOrders({ page: pageNumber });
+            const data = await fetchOrders({ page: pageNumber, search });
 
             if (!data || !Array.isArray(data.results)) {
                 toast.error("خطا در دریافت تاریخچه سفارشات.");
@@ -94,11 +96,11 @@ const History = () => {
             }
 
             console.log("Order deleted successfully:", id);
-            
-            toast.success("محصول با موفقیت خذف شد")
+
+            toast.success("محصول با موفقیت خذف شد");
 
             setOrders(orders.filter((p) => p.id !== id));
-           
+
             return {
                 success: true,
                 message: data.message || "Order deleted successfully",
@@ -109,8 +111,33 @@ const History = () => {
         }
     }
 
+    const handleSearch = async () => {
+        setOrders([])
+        loadOrders(1, search);
+    };
+
     return (
-        <>
+        <Box className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            <Box className="col-span-full flex items-center justify-between">
+                <Typography variant="h6">تاریخچه</Typography>
+                <Box className="flex items-center gap-2">
+                    <TextField
+                        variant="outlined"
+                        size="small"
+                        label="سرچ سفارش"
+                        value={search}
+                        onChange={(e) => setSearch(e.target.value)}
+                        onKeyDown={(e) => {
+                            if (e.key === "Enter") {
+                                handleSearch();
+                            }
+                        }}
+                    />
+                    <Button variant="contained" onClick={handleSearch}>
+                        <SearchRounded />
+                    </Button>
+                </Box>
+            </Box>
             {orders.length > 0 ? (
                 orders.map((order) => {
                     const [date, hour] = order?.order_date?.split(" - ") || [
@@ -195,7 +222,7 @@ const History = () => {
                     </Button>
                 </Box>
             )}
-        </>
+        </Box>
     );
 };
 

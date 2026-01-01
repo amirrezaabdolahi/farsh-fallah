@@ -1,9 +1,12 @@
-export const fetchOrders = async ({ page = 1 } = {}) => {
+export const fetchOrders = async ({ page = 1 , search } = {}) => {
     try {
         const params = new URLSearchParams();
 
         if (page > 1) {
             params.append("page", page);
+        }
+        if (search?.trim()) {
+            params.append("search" , search)
         }
 
         const query = params.toString();

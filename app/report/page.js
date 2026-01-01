@@ -23,8 +23,7 @@ const ReportPage = async ({ searchParams }) => {
         `${process.env.BACKEND_API_URL}api/reports/chart_sales/?${params}`
     ).then((res) => res.json());
 
-
-    console.log(reportDetail)
+    console.log(reportDetail);
 
     const topProductsData = await fetch(
         `${process.env.BACKEND_API_URL}api/reports/top_products/`,
@@ -50,7 +49,11 @@ const ReportPage = async ({ searchParams }) => {
                     </Box>
                     <Box className="flex items-center gap-1">
                         <Typography variant="h6" fontWeight={"bold"}>
-                            0
+                            {reportDetail?.data
+                                ? Number(
+                                      reportDetail?.data?.total_sale
+                                  ).toLocaleString("fa")
+                                : 0}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
                             تومان
@@ -67,7 +70,11 @@ const ReportPage = async ({ searchParams }) => {
                     </Box>
                     <Box className="flex items-center gap-1">
                         <Typography variant="h5" fontWeight={"bold"}>
-                            0
+                            {reportDetail?.data
+                                ? Number(
+                                      reportDetail?.data?.total_profit
+                                  ).toLocaleString("fa")
+                                : 0}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
                             تومان
@@ -84,7 +91,9 @@ const ReportPage = async ({ searchParams }) => {
                     </Box>
                     <Box className="flex items-center gap-1">
                         <Typography variant="h5" fontWeight={"bold"}>
-                            0
+                            {reportDetail?.data
+                                ? reportDetail?.data?.total_count
+                                : 0}
                         </Typography>
                         <Typography variant="body2" color="textSecondary">
                             فروش

@@ -4,11 +4,15 @@ export async function GET(req) {
     try {
         const { searchParams } = new URL(req.url);
         const page = searchParams.get("page");
+        const search = searchParams.get("search");
 
         const params = new URLSearchParams();
 
         if (page && Number(page) > 1) {
             params.append("page", page);
+        }
+        if (search?.trim()) {
+            params.append("search", search);
         }
 
         const query = params.toString();
