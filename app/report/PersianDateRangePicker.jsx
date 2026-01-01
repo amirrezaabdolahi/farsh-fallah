@@ -42,7 +42,7 @@ export default function PersianDateRangePicker({ start, end }) {
                     views={["year", "month", "day"]}
                     format="YYYY/MM/DD"
                 />
-                {startISO && endISO && isInvalidRange && (
+                {startISO && endISO && (
                     <Box className="flex items-center gap-2">
                         <Link
                             href={`/report/?start_date=${startISO}&end_date=${endISO}`}

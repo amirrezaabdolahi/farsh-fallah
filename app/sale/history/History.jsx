@@ -2,12 +2,21 @@
 
 import { fetchOrders } from "@/utils/fetchOrders";
 import React, { useState, useEffect } from "react";
-import { Box, Button, Card, Typography, CircularProgress } from "@mui/material";
+import {
+    Box,
+    Button,
+    Card,
+    Typography,
+    CircularProgress,
+    IconButton,
+    TextField,
+} from "@mui/material";
 import {
     AccessTimeRounded,
     AttachMoneyRounded,
     CalendarMonthRounded,
     ArrowBackRounded,
+    DeleteRounded,
 } from "@mui/icons-material";
 import Link from "next/link";
 import { toast } from "react-toastify";
@@ -28,8 +37,10 @@ const History = () => {
                 return;
             }
 
+            console.log(data);
+
             setOrders((prev) => [...prev, ...data.results]);
-            setHasMore(Boolean(data.next));
+            setHasMore(data?.next === null ? false : true);
         } catch (error) {
             console.error("Error fetching history:", error);
             toast.error("خطا در دریافت تاریخچه سفارشات.");
@@ -56,6 +67,46 @@ const History = () => {
                 <CircularProgress />
             </Box>
         );
+    }
+
+    async function handleDeleteOrder(id) {
+        if (!id) {
+            console.error("Order ID is required");
+            return { success: false, message: "Order ID is required" };
+        }
+
+        try {
+            const res = await fetch(`/api/order/${id}`, {
+                method: "DELETE",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+            });
+
+            const data = await res.json();
+
+            if (!res.ok) {
+                console.error("Delete failed:", data.message);
+                return {
+                    success: false,
+                    message: data.message || "Delete failed",
+                };
+            }
+
+            console.log("Order deleted successfully:", id);
+            
+            toast.success("محصول با موفقیت خذف شد")
+
+            setOrders(orders.filter((p) => p.id !== id));
+           
+            return {
+                success: true,
+                message: data.message || "Order deleted successfully",
+            };
+        } catch (error) {
+            console.error("Delete API error:", error);
+            return { success: false, message: "Server error" };
+        }
     }
 
     return (
@@ -107,7 +158,7 @@ const History = () => {
                                 تعداد آیتم‌ها: {order.items.length}
                             </Typography>
 
-                            <Box className="w-full items-center flex gap-2 mt-2">
+                            <Box className="w-full items-center flex gap-2 mt-2 justify-between">
                                 <Link href={`/sale/history/${order.id}`}>
                                     <Button
                                         variant="outlined"
@@ -118,6 +169,11 @@ const History = () => {
                                         مشاهده
                                     </Button>
                                 </Link>
+                                <IconButton
+                                    onClick={(e) => handleDeleteOrder(order.id)}
+                                >
+                                    <DeleteRounded color="error" />
+                                </IconButton>
                             </Box>
                         </Card>
                     );
