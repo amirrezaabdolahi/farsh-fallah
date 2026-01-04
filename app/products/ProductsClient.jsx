@@ -71,7 +71,7 @@ const ProductsClient = ({ searchParams }) => {
     if (isInitialLoading) return <ProductsSkeleton />;
 
     const handleDelete = (deletedId) => {
-        c
+        setProducts(products.filter((p) => p.id !== deletedId));
     };
 
     return (

@@ -51,7 +51,7 @@ const ReportPage = async ({ searchParams }) => {
                         <Typography variant="h6" fontWeight={"bold"}>
                             {reportDetail?.data
                                 ? Number(
-                                      reportDetail?.data?.total_sale
+                                      reportDetail?.data?.total_sales
                                   ).toLocaleString("fa")
                                 : 0}
                         </Typography>
@@ -117,7 +117,7 @@ const ReportPage = async ({ searchParams }) => {
                     <DouelAreaChart
                         data={
                             reportDetail?.data
-                                ? reportDetail?.data.daily
+                                ? reportDetail?.data.data
                                 : reportDetail?.month
                                 ? reportDetail?.month.data
                                 : []
@@ -159,18 +159,6 @@ const ReportPage = async ({ searchParams }) => {
                                 داده‌ای برای نمایش وجود ندارد.
                             </Typography>
                         )}
-                    </Box>
-                </Card>
-                <Card className="w-full h-full p-4 rounded-lg!">
-                    <Typography variant="body1" gutterBottom>
-                        نمودار برترین طرح محصولات
-                    </Typography>
-                    <Typography variant="body2" color="textSecondary">
-                        نمودار برترین طرح محصولات در بازه زمانی انتخاب شده نمایش
-                        داده خواهد شد.
-                    </Typography>
-                    <Box className="w-full" dir="ltr">
-                        <DouelAreaChart />
                     </Box>
                 </Card>
             </Box>

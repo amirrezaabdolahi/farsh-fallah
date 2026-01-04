@@ -62,6 +62,7 @@ export const boardCategories = [
 export const productTypes = [
     { id: 1, label: "فرش", value: "carpet" },
     { id: 2, label: "تابلو", value: "tableau" },
+    { id: 3, label: "کارکرده", value: "worked" },
 ];
 
 export const materials = [

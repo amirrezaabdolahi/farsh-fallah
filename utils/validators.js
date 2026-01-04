@@ -16,11 +16,11 @@ export const validateProductForm = (formData) => {
         errors.type = "نوع محصول را انتخاب کنید";
     }
 
-    if (!formData.crop_sex) {
+    if (!formData.crop_sex && !formData.type === productTypes[2]) {
         errors.crop_sex = "جنس محصول را انتخاب کنید";
     }
 
-    if (!formData.branch) {
+    if (!formData.branch && !formData.type === productTypes[2]) {
         errors.branch = "طرح محصول را انتخاب کنید";
     }
 

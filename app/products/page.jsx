@@ -56,7 +56,7 @@ const Products = async ({ searchParams }) => {
                         دسته‌بندی
                     </Typography>
                     <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
-                        فروش ها
+                        اندازه
                     </Typography>
                     <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
                         قیمت

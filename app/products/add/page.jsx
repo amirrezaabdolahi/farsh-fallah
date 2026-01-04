@@ -75,6 +75,7 @@ const EditForm = ({ handleUpdate }) => {
     };
 
     const handleSubmit = async () => {
+        console.log(formData);
         const { isValid, errors } = validateProductForm(formData);
 
         if (!isValid) {
@@ -91,15 +92,18 @@ const EditForm = ({ handleUpdate }) => {
         payload.append("serial_number", formData.serial_number ?? "");
         payload.append("description", formData.description);
         payload.append("type", formData.type?.value ?? "");
-        payload.append("crop_sex", formData.crop_sex.value ?? "");
-        payload.append("branch", formData.branch?.id ?? "");
         payload.append("unit_price", Number(formData.unit_price));
         payload.append("sale_price", Number(formData.sale_price));
+        payload.append("branch", formData.branch?.id ?? "worked");
+
+        if (!formData.type == productTypes[2]) {
+            payload.append("crop_sex", formData.crop_sex?.value ?? "");
+        }
 
         // Optional fields based on type
         if (formData.type === productTypes[0]) {
             payload.append("size", formData.size?.id ?? "");
-        } else {
+        } else if (formData.type === productTypes[1]) {
             payload.append("width", formData.width ?? "");
             payload.append("length", formData.length ?? "");
         }
@@ -109,6 +113,9 @@ const EditForm = ({ handleUpdate }) => {
         }
 
         try {
+            for (const [key, value] of payload.entries()) {
+                console.log(key, value);
+            }
             const res = await fetch(`/api/products/`, {
                 method: "POST",
                 body: payload,
@@ -136,8 +143,7 @@ const EditForm = ({ handleUpdate }) => {
                 length: "",
             });
 
-            setPreview(null)
-
+            setPreview(null);
         } catch (err) {
             toast.error("خطا در ذخیره محصول");
         } finally {
@@ -190,45 +196,52 @@ const EditForm = ({ handleUpdate }) => {
                                 )}
                             />
 
+                            {formData.type !== productTypes[2] && (
+                                <Autocomplete
+                                    className="w-full"
+                                    options={materials}
+                                    value={formData.crop_sex}
+                                    onChange={(_, v) =>
+                                        setFormData((p) => ({
+                                            ...p,
+                                            crop_sex: v,
+                                        }))
+                                    }
+                                    disabled={!formData.type}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            label="جنس"
+                                            size="small"
+                                            error={!!errors.crop_sex}
+                                        />
+                                    )}
+                                />
+                            )}
+                        </Box>
+
+                        {formData.type !== productTypes[2] && (
                             <Autocomplete
-                                className="w-full"
-                                options={materials}
-                                value={formData.crop_sex}
-                                onChange={(_, v) =>
-                                    setFormData((p) => ({ ...p, crop_sex: v }))
+                                options={
+                                    formData.type === productTypes[0]
+                                        ? carpetCategories
+                                        : boardCategories
                                 }
+                                value={formData.branch}
                                 disabled={!formData.type}
+                                onChange={(_, v) =>
+                                    setFormData((p) => ({ ...p, branch: v }))
+                                }
                                 renderInput={(params) => (
                                     <TextField
                                         {...params}
-                                        label="جنس"
+                                        label="طرح"
                                         size="small"
-                                        error={!!errors.crop_sex}
+                                        error={!!errors.branch}
                                     />
                                 )}
                             />
-                        </Box>
-
-                        <Autocomplete
-                            options={
-                                formData.type === productTypes[0]
-                                    ? carpetCategories
-                                    : boardCategories
-                            }
-                            value={formData.branch}
-                            disabled={!formData.type}
-                            onChange={(_, v) =>
-                                setFormData((p) => ({ ...p, branch: v }))
-                            }
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="طرح"
-                                    size="small"
-                                    error={!!errors.branch}
-                                />
-                            )}
-                        />
+                        )}
 
                         {formData.type === productTypes[0] ? (
                             <Autocomplete

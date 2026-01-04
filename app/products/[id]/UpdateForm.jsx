@@ -164,39 +164,44 @@ const EditForm = ({ product }) => {
                             )}
                         />
 
+                        {formData.type !== productTypes[2] && (
+                            <Autocomplete
+                                className="w-full"
+                                options={materials}
+                                value={formData.crop_sex}
+                                onChange={(_, v) =>
+                                    setFormData((p) => ({ ...p, crop_sex: v }))
+                                }
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="جنس"
+                                        size="small"
+                                        error={!!errors.crop_sex}
+                                    />
+                                )}
+                            />
+                        )}
+                    </Box>
+
+                    {formData.type !== productTypes[2] && (
                         <Autocomplete
-                            className="w-full"
-                            options={materials}
-                            value={formData.crop_sex}
+                            options={carpetCategories}
+                            value={formData.branch}
                             onChange={(_, v) =>
-                                setFormData((p) => ({ ...p, crop_sex: v }))
+                                setFormData((p) => ({ ...p, branch: v }))
                             }
                             renderInput={(params) => (
                                 <TextField
                                     {...params}
-                                    label="جنس"
+                                    label="طرح"
                                     size="small"
-                                    error={!!errors.crop_sex}
+                                    error={!!errors.branch}
                                 />
                             )}
                         />
-                    </Box>
+                    )}
 
-                    <Autocomplete
-                        options={carpetCategories}
-                        value={formData.branch}
-                        onChange={(_, v) =>
-                            setFormData((p) => ({ ...p, branch: v }))
-                        }
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label="طرح"
-                                size="small"
-                                error={!!errors.branch}
-                            />
-                        )}
-                    />
                     {formData.type === productTypes[0] ? (
                         <Autocomplete
                             options={[
