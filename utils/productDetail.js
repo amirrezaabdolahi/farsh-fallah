@@ -69,3 +69,11 @@ export const materials = [
     { id: 1, value: "chele nakh abrisham", label: "چله نخ ابریشم" },
     { id: 1, value: "chele abrisham", label: "چله ابریشم" },
 ];
+
+export const carpetSizes = [
+    { id: 1.5, label: "زرع و نیم" },
+    { id: 3, label: "قالیچه" },
+    { id: 6, label: "6 متری" },
+    { id: 9, label: "9 متری" },
+    { id: 12, label: "12 متری" },
+];

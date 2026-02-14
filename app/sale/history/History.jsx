@@ -21,6 +21,7 @@ import {
 } from "@mui/icons-material";
 import Link from "next/link";
 import { toast } from "react-toastify";
+import HistoryCard from "./HistoryCard";
 
 const History = () => {
     const [orders, setOrders] = useState([]);
@@ -33,13 +34,14 @@ const History = () => {
         setLoading(true);
         try {
             const data = await fetchOrders({ page: pageNumber, search });
-
             if (!data || !Array.isArray(data.results)) {
                 toast.error("خطا در دریافت تاریخچه سفارشات.");
                 return;
             }
 
-            console.log(data);
+            if (pageNumber === 1) {
+                setOrders([]);
+            }
 
             setOrders((prev) => [...prev, ...data.results]);
             setHasMore(data?.next === null ? false : true);
@@ -112,7 +114,7 @@ const History = () => {
     }
 
     const handleSearch = async () => {
-        setOrders([])
+        setOrders([]);
         loadOrders(1, search);
     };
 
@@ -146,63 +148,13 @@ const History = () => {
                     ];
 
                     return (
-                        <Card
+                        <HistoryCard
                             key={order.id}
-                            elevation={2}
-                            className="p-2 rounded-lg! flex flex-col gap-2"
-                        >
-                            <Typography variant="body1" fontWeight="bold">
-                                {order.customer_name}
-                            </Typography>
-
-                            <Box className="w-full items-center flex gap-2">
-                                <Typography
-                                    variant="body2"
-                                    className="flex items-center gap-1"
-                                >
-                                    <AccessTimeRounded color="primary" />
-                                    {hour}
-                                </Typography>
-
-                                <Typography
-                                    variant="body2"
-                                    className="flex items-center gap-1"
-                                >
-                                    <AttachMoneyRounded color="success" />
-                                    {Number(order.total_price).toLocaleString()}
-                                </Typography>
-                            </Box>
-
-                            <Typography
-                                variant="body2"
-                                className="flex items-center gap-1"
-                            >
-                                <CalendarMonthRounded color="warning" />
-                                {date}
-                            </Typography>
-
-                            <Typography variant="body1">
-                                تعداد آیتم‌ها: {order.items.length}
-                            </Typography>
-
-                            <Box className="w-full items-center flex gap-2 mt-2 justify-between">
-                                <Link href={`/sale/history/${order.id}`}>
-                                    <Button
-                                        variant="outlined"
-                                        size="small"
-                                        endIcon={<ArrowBackRounded />}
-                                        className="rounded-lg!"
-                                    >
-                                        مشاهده
-                                    </Button>
-                                </Link>
-                                <IconButton
-                                    onClick={(e) => handleDeleteOrder(order.id)}
-                                >
-                                    <DeleteRounded color="error" />
-                                </IconButton>
-                            </Box>
-                        </Card>
+                            order={order}
+                            date={date}
+                            hour={hour}
+                            handleDeleteOrder={handleDeleteOrder}
+                        />
                     );
                 })
             ) : (

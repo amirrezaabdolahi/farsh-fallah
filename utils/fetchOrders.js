@@ -17,10 +17,10 @@ export const fetchOrders = async ({ page = 1 , search } = {}) => {
         });
 
         if (!res.ok) {
-            throw new Error("Failed to fetch orders");
+            console.log(res)
         }
 
-        return await res.json(); // { results, count, next, previous }
+    return await res.json(); // { results, count, next, previous }
     } catch (error) {
         console.error("Error fetching orders:", error);
 

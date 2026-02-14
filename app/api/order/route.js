@@ -29,16 +29,8 @@ export async function GET(req) {
             cache: "no-store",
         });
 
-        if (!res.ok) {
-            return NextResponse.json(
-                { success: false, message: "خطا در ارتباط با API بک‌اند" },
-                { status: res.status }
-            );
-        }
-
         const data = await res.json();
 
-        // ⬅️ contract ثابت با frontend
         return NextResponse.json(data, { status: 200 });
     } catch (error) {
         console.error("Orders API error:", error);
@@ -48,7 +40,7 @@ export async function GET(req) {
                 success: false,
                 message: "خطای داخلی سرور",
             },
-            { status: 500 }
+            { status: 500 },
         );
     }
 }
@@ -64,7 +56,7 @@ export async function POST(request) {
         ) {
             return NextResponse.json(
                 { success: false, message: "اطلاعات ناقص است" },
-                { status: 400 }
+                { status: 400 },
             );
         }
 
@@ -80,7 +72,7 @@ export async function POST(request) {
         if (!res.ok) {
             return NextResponse.json(
                 { success: false, message: "خطا در ارتباط با API" },
-                { status: res.status }
+                { status: res.status },
             );
         }
 
@@ -90,13 +82,13 @@ export async function POST(request) {
 
         return NextResponse.json(
             { success: true, data: result },
-            { status: 201 }
+            { status: 201 },
         );
     } catch (error) {
         console.error("Order API error:", error);
         return NextResponse.json(
             { success: false, message: "خطای سرور رخ داد" },
-            { status: 500 }
+            { status: 500 },
         );
     }
 }

@@ -1,8 +1,10 @@
 "use client";
 
+import { carpetSizes } from "@/utils/productDetail";
 import {
     DeleteRounded,
     EditRounded,
+    RemoveRedEye,
     ReportProblemRounded,
 } from "@mui/icons-material";
 import {
@@ -35,6 +37,8 @@ const Product = ({ product, onDelete }) => {
 
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
+
+    console.log(product);
 
     const handleDelete = async (id) => {
         if (!id || loading) return;
@@ -117,13 +121,25 @@ const Product = ({ product, onDelete }) => {
                     variant="subtitle1 text-center grid-cols-1"
                     dir="ltr"
                 >
-                    {product.size}
+                    {product.type === "carpet"
+                        ? carpetSizes.map(
+                              (size) => size.id == product.size && size.label,
+                          )
+                        : `${product.length} / ${product.width}`}
                 </Typography>
                 <Typography variant="subtitle1 text-center grid-cols-1">
                     {Number(product.sale_price).toLocaleString("fa-IR")} تومان
                 </Typography>
 
                 <Box className="flex items-center justify-center grid-cols-1">
+                    <Link
+                        href={`products/${product.id}/view`}
+                        className="p-0 m-0"
+                    >
+                        <IconButton color="warning">
+                            <RemoveRedEye />
+                        </IconButton>
+                    </Link>
                     <Link href={`products/${product.id}`} className="p-0 m-0">
                         <IconButton color="primary">
                             <EditRounded />

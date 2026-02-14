@@ -54,8 +54,7 @@ const OrderDetailPage = () => {
         );
     }
 
-    console.log(order)
-
+    console.log(order);
 
     let date = "";
     let time = "";
@@ -101,38 +100,40 @@ const OrderDetailPage = () => {
 
                 {/* Items */}
                 <Box className="flex flex-col gap-2">
-                    {order?.items.map((item) => (
+                    {order?.items?.map((item) => (
                         <Card key={item.id} className="p-3">
                             <Typography fontWeight="bold">
-                                {item.product.name}
+                                {item?.product
+                                    ? item?.product?.name
+                                    : "حذف شده"}
                             </Typography>
 
                             <Divider className="my-2" />
 
                             <Typography>
-                                قیمت فروش: {Number(item.price).toLocaleString()}{" "}
-                                تومان
+                                قیمت فروش:{" "}
+                                {Number(item?.price).toLocaleString()} تومان
                             </Typography>
 
                             <Typography>
-                                تخفیف: {Number(item.discount).toLocaleString()}{" "}
-                                تومان ({item.discount_percent}%)
+                                تخفیف: {Number(item?.discount).toLocaleString()}{" "}
+                                تومان ({item?.discount_percent}%)
                             </Typography>
 
                             <Typography>
                                 مبلغ نهایی:{" "}
-                                {Number(item.final_price).toLocaleString()}{" "}
+                                {Number(item?.final_price).toLocaleString()}{" "}
                                 تومان
                             </Typography>
 
                             <Typography
                                 color={
-                                    Number(item.profit) < 0
+                                    Number(item?.profit) < 0
                                         ? "error"
                                         : "success.main"
                                 }
                             >
-                                سود: {Number(item.profit).toLocaleString()}{" "}
+                                سود: {Number(item?.profit).toLocaleString()}{" "}
                                 تومان
                             </Typography>
                         </Card>
