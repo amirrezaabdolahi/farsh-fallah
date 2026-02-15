@@ -33,7 +33,7 @@ export async function GET(req) {
                 headers: {
                     "Content-Type": "application/json",
                 },
-                cache: "no-store",
+                // cache: "no-store",
             }
         );
 

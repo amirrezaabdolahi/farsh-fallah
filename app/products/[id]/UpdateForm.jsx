@@ -29,7 +29,7 @@ const EditForm = ({ product }) => {
         description: product?.description ?? "",
         type: productTypes.find((t) => t.value === product?.type) || null,
         crop_sex: product?.crop_sex ?? null,
-        branch: product?.branch ?? null,
+        branch: product?.branch_display ?? null,
         unit_price: product?.unit_price ?? "",
         sale_price: product?.sale_price ?? "",
         serial_number: product?.serial_number || "",
@@ -52,6 +52,8 @@ const EditForm = ({ product }) => {
             ...prev,
             [name]: value,
         }));
+
+        console.log(formData);
     };
 
     const handleImageChange = (e) => {
@@ -84,8 +86,8 @@ const EditForm = ({ product }) => {
         payload.append("serial_number", formData.serial_number ?? "");
         payload.append("description", formData.description);
         payload.append("type", formData.type?.value ?? "");
-        payload.append("crop_sex", formData.crop_sex ?? "");
-        payload.append("branch", formData.branch ?? "");
+        payload.append("crop_sex", formData.crop_sex?.value ?? "");
+        payload.append("branch", formData.branch?.id ?? "");
         payload.append("unit_price", Number(formData.unit_price));
         payload.append("sale_price", Number(formData.sale_price));
 

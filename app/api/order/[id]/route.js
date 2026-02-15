@@ -19,7 +19,7 @@ export async function GET(request, { params }) {
                     "Content-Type": "application/json",
                     // Authorization: `Token ${process.env.BACKEND_API_TOKEN}`,
                 },
-                cache: "no-store", // مهم برای دیتای داینامیک
+                // cache: "no-store", // مهم برای دیتای داینامیک
             }
         );
 

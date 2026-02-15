@@ -28,7 +28,7 @@ const ReportPage = async ({ searchParams }) => {
     const topProductsData = await fetch(
         `${process.env.BACKEND_API_URL}api/reports/top_products/`,
         {
-            cache: "no-store",
+            // cache: "no-store",
         }
     ).then((res) => res?.json());
 

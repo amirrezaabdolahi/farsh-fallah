@@ -26,7 +26,7 @@ export async function GET(req) {
                 "Content-Type": "application/json",
                 // Authorization: `Token ${process.env.BACKEND_API_TOKEN}`,
             },
-            cache: "no-store",
+            // cache: "no-store",
         });
 
         const data = await res.json();

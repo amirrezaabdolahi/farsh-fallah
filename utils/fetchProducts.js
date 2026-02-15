@@ -10,7 +10,7 @@ export const fetchProducts = async ({ branch, type, search, page = 1 }) => {
         params.append("page", page);
 
         const res = await fetch(`/api/products/?${params.toString()}`, {
-            cache: "no-store",
+            // cache: "no-store",
         });
 
         if (!res.ok) {

@@ -36,7 +36,7 @@ export const fetchOrders = async ({ page = 1 , search } = {}) => {
 export const fetchOrderDetail = async (id) => {
     try {
         const res = await fetch(`/api/order/${id}/`, {
-            cache: "no-store",
+            // cache: "no-store",
         });
 
         if (!res.ok) {
