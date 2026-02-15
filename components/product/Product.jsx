@@ -38,8 +38,6 @@ const Product = ({ product, onDelete }) => {
     const handleOpen = () => setOpen(true);
     const handleClose = () => setOpen(false);
 
-    console.log(product);
-
     const handleDelete = async (id) => {
         if (!id || loading) return;
         setLoading(true);

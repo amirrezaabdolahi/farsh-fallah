@@ -19,18 +19,25 @@ import ProductPageHeader from "./ProductPageHeader";
 import ProductPageSeach from "./ProductPageSeach";
 
 const Products = async ({ searchParams }) => {
-    const branch = searchParams?.branch || "all";
-    const type = searchParams?.type || "all";
-    const search = searchParams?.search?.trim() || "";
+    const branch = await searchParams?.branch || "all";
+    const type = await searchParams?.type || "all";
+    const search = await searchParams?.search?.trim() || "";
 
     const data = await fetch(
         `${process.env.BACKEND_API_URL}api/reports/top_products/`
     ).then((res) => res.json());
+    const data1 = await fetch(
+        `${process.env.BACKEND_API_URL}api/reports/customers_by_region/`
+    ).then((res) => res.json());
+
+    console.log(data);
+    console.log(data1);
+    
 
     return (
         <PageLayout>
             {/* page header */}
-            <ProductPageHeader />
+            <ProductPageHeader data={data} />
 
             {/* page search and add product or sale */}
 
