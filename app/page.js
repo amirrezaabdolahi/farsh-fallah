@@ -29,7 +29,7 @@ export default async function Home() {
     const [dashBoardData, barChartData, areaChartData] = await Promise.all([
         fetchJson(`${process.env.BACKEND_API_URL}api/reports/dashboard/`),
         fetchJson(
-            `${process.env.BACKEND_API_URL}api/reports/customers_by_region/`
+            `${process.env.BACKEND_API_URL}api/reports/customers_by_region/`,
         ),
         fetchJson(`${process.env.BACKEND_API_URL}api/reports/chart_sales/`),
     ]);
@@ -39,7 +39,7 @@ export default async function Home() {
             id: 1,
             title: "درآمد ماه",
             value: `${Number(dashBoardData?.month_profit).toLocaleString(
-                "fa-IR"
+                "fa-IR",
             )} ت`,
             icon: <AttachMoneyRounded />,
         },
@@ -47,7 +47,7 @@ export default async function Home() {
             id: 2,
             title: "درآمد روز",
             value: `${Number(dashBoardData?.today_profit).toLocaleString(
-                "fa-IR"
+                "fa-IR",
             )} ت`,
             icon: <CalendarMonthRounded />,
         },
@@ -64,6 +64,23 @@ export default async function Home() {
             icon: <AddCardRounded />,
         },
     ];
+
+    if (!dashBoardData || !barChartData || !areaChartData) {
+        return (
+            <PageLayout>
+                <Typography
+                    variant="h6"
+                    color="error"
+                    textAlign="center"
+                    mt={4}
+                >
+                    در حال بارگذاری داده‌ها اگر این پیام برای مدت طولانی باقی
+                    ماند، لطفاً اتصال اینترنت خود را بررسی کنید یا صفحه را
+                    دوباره بارگذاری کنید.
+                </Typography>
+            </PageLayout>
+        );
+    }
 
     return (
         <PageLayout>

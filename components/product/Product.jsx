@@ -1,6 +1,7 @@
 "use client";
 
-import { carpetSizes } from "@/utils/productDetail";
+import { enTypeToFa } from "@/utils/enTofa";
+import { carpetSizes, productTypes } from "@/utils/productDetail";
 import {
     DeleteRounded,
     EditRounded,
@@ -65,6 +66,8 @@ const Product = ({ product, onDelete }) => {
         }
     };
 
+    console.log(product);
+
     return (
         <>
             <Card
@@ -110,7 +113,7 @@ const Product = ({ product, onDelete }) => {
                 </Box>
 
                 <Typography variant="subtitle1 text-center grid-cols-1">
-                    {product.created_at.split(" - ")[0]}
+                    {enTypeToFa(product.type)}
                 </Typography>
                 <Typography variant="subtitle1 text-center grid-cols-1">
                     {product.branch_display}

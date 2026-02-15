@@ -28,11 +28,7 @@ const Products = async ({ searchParams }) => {
     ).then((res) => res.json());
     const data1 = await fetch(
         `${process.env.BACKEND_API_URL}api/reports/customers_by_region/`
-    ).then((res) => res.json());
-
-    console.log(data);
-    console.log(data1);
-    
+    ).then((res) => res.json());   
 
     return (
         <PageLayout>
@@ -57,7 +53,7 @@ const Products = async ({ searchParams }) => {
                         محصولات
                     </Typography>
                     <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
-                        تاریخ
+                        نوع
                     </Typography>
                     <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
                         دسته‌بندی

@@ -13,6 +13,7 @@ import {
     IconButton,
 } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
+import { enTypeToFa } from "@/utils/enTofa";
 
 const ProductViewCard = ({ product }) => {
     const [open, setOpen] = useState(false);
@@ -50,7 +51,7 @@ const ProductViewCard = ({ product }) => {
                         />
                         {product.type && (
                             <Chip
-                                label={product.type}
+                                label={enTypeToFa(product.type)}
                                 color="secondary"
                                 size="small"
                             />
@@ -111,7 +112,7 @@ const ProductViewCard = ({ product }) => {
                 open={open}
                 BackdropProps={{
                     sx: {
-                        backgroundColor: "rgba(0,0,0,0.9)", // darker overlay
+                        backgroundColor: "rgba(0,0,0,0.9)", 
                     },
                 }}
                 onClose={() => setOpen(false)}
