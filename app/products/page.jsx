@@ -19,21 +19,18 @@ import ProductPageHeader from "./ProductPageHeader";
 import ProductPageSeach from "./ProductPageSeach";
 
 const Products = async ({ searchParams }) => {
-    const branch = await searchParams?.branch || "all";
-    const type = await searchParams?.type || "all";
-    const search = await searchParams?.search?.trim() || "";
+    const branch = (await searchParams?.branch) || "all";
+    const type = (await searchParams?.type) || "all";
+    const search = (await searchParams?.search?.trim()) || "";
 
     const data = await fetch(
-        `${process.env.BACKEND_API_URL}api/reports/top_products/`
+        `${process.env.BACKEND_API_URL}api/reports/top_products/`,
     ).then((res) => res.json());
-    const data1 = await fetch(
-        `${process.env.BACKEND_API_URL}api/reports/customers_by_region/`
-    ).then((res) => res.json());   
 
     return (
         <PageLayout>
             {/* page header */}
-            <ProductPageHeader data={data} />
+            {data && <ProductPageHeader data={data} />}
 
             {/* page search and add product or sale */}
 
@@ -49,22 +46,46 @@ const Products = async ({ searchParams }) => {
                 sx={horizontalScrollSx}
             >
                 <Card className="w-200 lg:w-full rounded-lg! sticky top-0 bg-transparent! backdrop-blur-sm z-50 shadow-lg border border-gray-200 py-4 px-6 grid grid-cols-6 items-center justify-between">
-                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
+                    <Typography
+                        variant="subtitle1"
+                        className="text-center"
+                        fontWeight={"bold"}
+                    >
                         محصولات
                     </Typography>
-                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
+                    <Typography
+                        variant="subtitle1"
+                        className="text-center"
+                        fontWeight={"bold"}
+                    >
                         نوع
                     </Typography>
-                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
+                    <Typography
+                        variant="subtitle1"
+                        className="text-center"
+                        fontWeight={"bold"}
+                    >
                         دسته‌بندی
                     </Typography>
-                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
+                    <Typography
+                        variant="subtitle1"
+                        className="text-center"
+                        fontWeight={"bold"}
+                    >
                         اندازه
                     </Typography>
-                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
+                    <Typography
+                        variant="subtitle1"
+                        className="text-center"
+                        fontWeight={"bold"}
+                    >
                         قیمت
                     </Typography>
-                    <Typography variant="subtitle1" className="text-center" fontWeight={"bold"}>
+                    <Typography
+                        variant="subtitle1"
+                        className="text-center"
+                        fontWeight={"bold"}
+                    >
                         اقدامات
                     </Typography>
                 </Card>

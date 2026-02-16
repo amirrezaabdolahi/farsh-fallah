@@ -8,7 +8,7 @@ import {
     TextField,
     Typography,
 } from "@mui/material";
-import { Box, width } from "@mui/system";
+import { Box } from "@mui/system";
 import { CloudUploadRounded, SaveRounded } from "@mui/icons-material";
 import { validateProductForm } from "@/utils/validators";
 import {
@@ -22,10 +22,7 @@ import PageLayout from "@/components/PageLayout";
 import BackWhereCome from "@/components/BackWhereCome";
 import { toast } from "react-toastify";
 
-const FALLBACK_IMAGE =
-    "https://cdn.shopify.com/s/files/1/0309/9262/9899/files/celestine-soft-blue-v2-A-RC-NU010-69.jpg?v=1742921945&width=640";
-
-const EditForm = ({ handleUpdate }) => {
+const EditForm = () => {
     const [loading, setLoading] = useState(false);
     const [errors, setErrors] = useState({});
     const [preview, setPreview] = useState(null);
@@ -45,7 +42,6 @@ const EditForm = ({ handleUpdate }) => {
         length: "",
     });
 
-    // جلوگیری از memory leak
     useEffect(() => {
         return () => {
             if (preview?.startsWith("blob:")) {
@@ -56,6 +52,7 @@ const EditForm = ({ handleUpdate }) => {
 
     const handleFormDataChange = (e) => {
         const { name, value } = e.target;
+        console.log(formData);
         setFormData((prev) => ({
             ...prev,
             [name]: value,
@@ -97,7 +94,7 @@ const EditForm = ({ handleUpdate }) => {
         payload.append("sale_price", Number(formData.sale_price));
         payload.append("branch", formData.branch?.id ?? "worked");
 
-        if (!formData.type == productTypes[2]) {
+        if (formData.type?.value !== productTypes[2].value) {
             payload.append("crop_sex", formData.crop_sex?.value ?? "");
         }
 

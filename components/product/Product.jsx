@@ -126,7 +126,7 @@ const Product = ({ product, onDelete }) => {
                         ? carpetSizes.map(
                               (size) => size.id == product.size && size.label,
                           )
-                        : `${product.length} / ${product.width}`}
+                        : `${product.length || 0 } / ${product.width || 0}`}
                 </Typography>
                 <Typography variant="subtitle1 text-center grid-cols-1">
                     {Number(product.sale_price).toLocaleString("fa-IR")} تومان

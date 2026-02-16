@@ -104,6 +104,9 @@ const EditForm = ({ product }) => {
         }
 
         try {
+            for (const [key, value] of payload.entries()) {
+                console.log(key, value);
+            }
             const res = await fetch(`/api/products/${product.id}`, {
                 method: "PUT",
                 body: payload,
