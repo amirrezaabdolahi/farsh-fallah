@@ -77,9 +77,6 @@ export async function POST(request) {
         }
 
         const result = await res.json();
-
-        console.log("data has posted successfully:", result);
-
         return NextResponse.json(
             { success: true, data: result },
             { status: 201 },

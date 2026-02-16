@@ -99,7 +99,6 @@ const SaleForm = ({ items, setItems }) => {
 
         if (!isValid) {
             setErrors(errors);
-            console.log(errors);
             return;
         }
 
@@ -154,9 +153,9 @@ const SaleForm = ({ items, setItems }) => {
             setLoading(false);
         }
     };
-    useEffect(() => {
-        console.log("products length:", products.length);
-    }, [products]);
+    // useEffect(() => {
+    //     console.log("products length:", products.length);
+    // }, [products]);
 
     const handleClear = () => {
         setForm({

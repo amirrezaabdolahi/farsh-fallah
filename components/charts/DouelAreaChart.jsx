@@ -15,8 +15,6 @@ import {
 
 const DouelAreaChart = ({ data }) => {
 
-    console.log(data)
-
     const formattedData = data?.map((item) => ({
         ...item,
         label: dayjs(item.label).format("MM/DD"),

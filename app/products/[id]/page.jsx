@@ -8,9 +8,6 @@ const ProductDetailsPage = async ({ params }) => {
 
     const res = await fetch(`${process.env.BACKEND_API_URL}api/products/${id}`);
     const rawProduct = await res.json();
-
-    console.log(rawProduct)
-
     return (
         <PageLayout>
             <BackWhereCome />

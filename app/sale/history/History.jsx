@@ -97,8 +97,6 @@ const History = () => {
                 };
             }
 
-            console.log("Order deleted successfully:", id);
-
             toast.success("محصول با موفقیت خذف شد");
 
             setOrders(orders.filter((p) => p.id !== id));

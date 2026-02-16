@@ -52,7 +52,6 @@ const EditForm = () => {
 
     const handleFormDataChange = (e) => {
         const { name, value } = e.target;
-        console.log(formData);
         setFormData((prev) => ({
             ...prev,
             [name]: value,
@@ -73,12 +72,10 @@ const EditForm = () => {
     };
 
     const handleSubmit = async () => {
-        console.log(formData);
         const { isValid, errors } = validateProductForm(formData);
 
         if (!isValid) {
             setErrors(errors);
-            console.log(errors);
             return;
         }
 
@@ -111,9 +108,9 @@ const EditForm = () => {
         }
 
         try {
-            for (const [key, value] of payload.entries()) {
-                console.log(key, value);
-            }
+            // for (const [key, value] of payload.entries()) {
+            //     console.log(key, value);
+            // }
             const res = await fetch(`/api/products/`, {
                 method: "POST",
                 body: payload,

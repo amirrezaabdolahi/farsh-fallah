@@ -22,7 +22,6 @@ const SalePage = async () => {
         { cache: "no-store" }
     ).then((res) => res.json());
 
-    console.log(historyData);
     return (
         <PageLayout>
             <Box className="w-full grid grid-cols-1 md:grid-cols-2 items-center justify-between gap-4">

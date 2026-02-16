@@ -66,8 +66,6 @@ const Product = ({ product, onDelete }) => {
         }
     };
 
-    console.log(product);
-
     return (
         <>
             <Card

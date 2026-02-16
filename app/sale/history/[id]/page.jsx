@@ -15,6 +15,7 @@ import {
     AccessTimeRounded,
     AttachMoneyRounded,
 } from "@mui/icons-material";
+import BackWhereCome from "@/components/BackWhereCome";
 
 const OrderDetailPage = () => {
     const { id } = useParams();
@@ -54,8 +55,6 @@ const OrderDetailPage = () => {
         );
     }
 
-    console.log(order);
-
     let date = "";
     let time = "";
 
@@ -66,6 +65,7 @@ const OrderDetailPage = () => {
     return (
         <PageLayout>
             <Box className="flex flex-col gap-4">
+                <BackWhereCome />
                 <Typography variant="h5">جزئیات سفارش #{order.id}</Typography>
 
                 {/* Customer Info */}
@@ -105,7 +105,7 @@ const OrderDetailPage = () => {
                             <Typography fontWeight="bold">
                                 {item?.product
                                     ? item?.product?.name
-                                    : "حذف شده"}
+                                    : "محصول حذف شده"}
                             </Typography>
 
                             <Divider className="my-2" />

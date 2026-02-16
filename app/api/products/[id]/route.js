@@ -5,9 +5,6 @@ export async function PUT(request, { params }) {
 
     try {
         const formData = await request.formData();
-
-        console.log(formData);
-
         const res = await fetch(
             `${process.env.BACKEND_API_URL}api/products/${id}/`,
             {

@@ -23,7 +23,6 @@ const ReportPage = async ({ searchParams }) => {
         `${process.env.BACKEND_API_URL}api/reports/chart_sales/?${params}`
     ).then((res) => res.json());
 
-    console.log(reportDetail);
 
     const topProductsData = await fetch(
         `${process.env.BACKEND_API_URL}api/reports/top_products/`,

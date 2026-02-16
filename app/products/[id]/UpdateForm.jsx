@@ -12,7 +12,9 @@ import { Box } from "@mui/system";
 import { CloudUploadRounded, SaveRounded } from "@mui/icons-material";
 import { validateProductForm } from "@/utils/validators";
 import {
+    boardCategories,
     carpetCategories,
+    carpetSizes,
     materials,
     productTypes,
 } from "@/utils/productDetail";
@@ -28,12 +30,21 @@ const EditForm = ({ product }) => {
         image: product?.image ?? null,
         description: product?.description ?? "",
         type: productTypes.find((t) => t.value === product?.type) || null,
-        crop_sex: product?.crop_sex ?? null,
-        branch: product?.branch_display ?? null,
+        crop_sex: materials.find((m) => m.value === product?.crop_sex) ?? null,
+        branch:
+            product.type == productTypes[0].value
+                ? carpetCategories.find(
+                      (c) => c.label === product?.branch_display,
+                  )
+                : (boardCategories.find(
+                      (c) => c.label === product?.branch_display,
+                  ) ?? null),
         unit_price: product?.unit_price ?? "",
         sale_price: product?.sale_price ?? "",
         serial_number: product?.serial_number || "",
-        size: product?.size || "",
+        size: product.size
+            ? carpetSizes.find((s) => s.id == product?.size)
+            : null || "",
         width: product?.width || "",
         length: product?.length || "",
     });
@@ -53,7 +64,6 @@ const EditForm = ({ product }) => {
             [name]: value,
         }));
 
-        console.log(formData);
     };
 
     const handleImageChange = (e) => {
@@ -74,7 +84,6 @@ const EditForm = ({ product }) => {
 
         if (!isValid) {
             setErrors(errors);
-            console.log(errors);
             return;
         }
 
@@ -92,8 +101,8 @@ const EditForm = ({ product }) => {
         payload.append("sale_price", Number(formData.sale_price));
 
         // Optional fields based on type
-        if (formData.type === productTypes[0]) {
-            payload.append("size", formData.size ?? "");
+        if (formData.type?.value === productTypes[0].value) {
+            payload.append("size", Number(formData.size?.id) ?? "");
         } else {
             payload.append("width", formData.width ?? "");
             payload.append("length", formData.length ?? "");
@@ -104,9 +113,9 @@ const EditForm = ({ product }) => {
         }
 
         try {
-            for (const [key, value] of payload.entries()) {
-                console.log(key, value);
-            }
+            // for (const [key, value] of payload.entries()) {
+            //     console.log(key, value);
+            // }
             const res = await fetch(`/api/products/${product.id}`, {
                 method: "PUT",
                 body: payload,
@@ -157,7 +166,15 @@ const EditForm = ({ product }) => {
                             options={productTypes}
                             value={formData.type}
                             onChange={(_, v) =>
-                                setFormData((p) => ({ ...p, type: v }))
+                                setFormData((p) => ({
+                                    ...p,
+                                    type: v,
+                                    branch: null,
+                                    size: null,
+                                    width: "",
+                                    length: "",
+                                    crop_sex: null,
+                                }))
                             }
                             renderInput={(params) => (
                                 <TextField
@@ -169,7 +186,7 @@ const EditForm = ({ product }) => {
                             )}
                         />
 
-                        {formData.type !== productTypes[2] && (
+                        {formData.type?.value !== productTypes[2].value && (
                             <Autocomplete
                                 className="w-full"
                                 options={materials}
@@ -189,7 +206,7 @@ const EditForm = ({ product }) => {
                         )}
                     </Box>
 
-                    {formData.type !== productTypes[2] && (
+                    {formData.type?.value !== productTypes[2].value && (
                         <Autocomplete
                             options={carpetCategories}
                             value={formData.branch}
@@ -207,7 +224,7 @@ const EditForm = ({ product }) => {
                         />
                     )}
 
-                    {formData.type === productTypes[0] ? (
+                    {formData.type?.value == productTypes[0].value ? (
                         <Autocomplete
                             options={[
                                 { id: 1.5, label: "زرع و نیم" },
@@ -231,7 +248,7 @@ const EditForm = ({ product }) => {
                                 />
                             )}
                         />
-                    ) : formData.type === productTypes[1] ? (
+                    ) : formData.type?.value === productTypes[1].value ? (
                         <div style={{ display: "flex", gap: "10px" }}>
                             <TextField
                                 label="طول"

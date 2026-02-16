@@ -23,9 +23,6 @@ export async function GET(req) {
     }
 
     params.append("page", page);
-
-    console.log("params is : ", params.toString());
-
     try {
         const res = await fetch(
             `${process.env.BACKEND_API_URL}api/products/?${params.toString()}`,
@@ -62,7 +59,6 @@ export async function POST(req) {
 
         if (!res.ok) {
             const error = await res.json().catch(() => null);
-            console.log(error)
             return NextResponse.json(
                 {
                     message:
