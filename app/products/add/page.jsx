@@ -72,8 +72,9 @@ const EditForm = () => {
     };
 
     const handleSubmit = async () => {
+        console.log(formData);
         const { isValid, errors } = validateProductForm(formData);
-
+        console.log(errors);
         if (!isValid) {
             setErrors(errors);
             return;
@@ -89,7 +90,7 @@ const EditForm = () => {
         payload.append("type", formData.type?.value ?? "");
         payload.append("unit_price", Number(formData.unit_price));
         payload.append("sale_price", Number(formData.sale_price));
-        payload.append("branch", formData.branch?.id ?? "worked");
+        payload.append("branch", formData.branch?.id ?? "abrisham_qom");
 
         if (formData.type?.value !== productTypes[2].value) {
             payload.append("crop_sex", formData.crop_sex?.value ?? "");
@@ -108,9 +109,10 @@ const EditForm = () => {
         }
 
         try {
-            // for (const [key, value] of payload.entries()) {
-            //     console.log(key, value);
-            // }
+            for (const [key, value] of payload.entries()) {
+                console.log(key, value);
+            }
+
             const res = await fetch(`/api/products/`, {
                 method: "POST",
                 body: payload,
